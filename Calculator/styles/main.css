@@ -1,11 +1,12 @@
+.informer {
+    margin-top: 200px;
+    align-content: center;
+    text-align: center;
+}
 .button {
-    margin: 200px auto;
+    margin: 0;
     display: flex;
     justify-content: center;
     align-content: center;
     text-align: center;
-}
-
-.button_value {
-    margin-left: 15px;
 }
