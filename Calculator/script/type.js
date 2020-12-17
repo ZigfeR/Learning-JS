@@ -4,32 +4,44 @@ var button = document.getElementById("button_value");
 
 infoStartOne.textContent = "Press the button to start Calculator";
 
+let a, b, result;
+
+const operators = {
+  plus: "+",
+  minus: "-",
+  multiply: "*",
+  divide: "/"
+};
+
 function myFunction() {
   isDisplayCalc();
 }
-
-let a, b, result;
 
 function isDisplayCalc() {
   a = +prompt('Number (1)', 0);
   let operator = CalcOperator();
   b = +prompt('Number (2)', 0);
   Calcculator(operator);
-
   infoStartOne.textContent = "Result sum: " + result;
 }
 
 function CalcOperator() {
-  let operator = prompt('operator', "+ | - | * | /");
-  switch (operator) {
-    case "-":
-    case "+":
-    case "*":
-    case "/":
-      return operator;
-    default:
-      return ErrorCalcOperator();
+  let localOperator = prompt('operator', promptStr());
+  for (let key in operators) {
+    let verifyOperator = operators[key];
+    if (verifyOperator == localOperator) {
+      return localOperator;
+    }
   }
+  return ErrorCalcOperator();
+}
+
+function promptStr() {
+  let strng = "";
+  for (let key in operators) {
+    strng += operators[key] + " | ";
+  }
+  return strng;
 }
 
 function ErrorCalcOperator() {
@@ -39,24 +51,21 @@ function ErrorCalcOperator() {
 
 function Calcculator(operator) {
   switch (operator) {
-    case "+":
+    case operators.plus:
       result = sum(a, b);
       infoStartOne.textContent = "Result sum: " + result;
       break;
-    case "-":
+    case operators.minus:
       result = sub(a, b);
       infoStartOne.textContent = "Result sum: " + result;
       break;
-    case "*":
+    case operators.multiply:
       result = mult(a, b);
       infoStartOne.textContent = "Result sum: " + result;
       break;
-    case "/":
+    case operators.divide:
       result = div(a, b);
       infoStartOne.textContent = "Result sum: " + result;
-      break;
-    default:
-      alert("Error");
       break;
   }
 }
