@@ -8,53 +8,73 @@ function myFunction() {
   isDisplayCalc();
 }
 
+let a, b, result;
+
 function isDisplayCalc() {
-  let a, b, sum;
+  a = +prompt('Number (1)', 0);
+  let operator = CalcOperator();
+  b = +prompt('Number (2)', 0);
+  Calcculator(operator);
 
-  let calculator = {
-    sum() {
-      return a + b;
-    },
-    sub() {
-      return a - b;
-    },
-    mult() {
-      return a * b;
-    },
-    div() {
-      return a / b;
-    },
-    read() {
-      a = +prompt('Number (1)', 0);
-      b = +prompt('Number (2)', 0);
-    }
-  };
+  infoStartOne.textContent = "Result sum: " + result;
+}
 
-  calculator.read();
-
+function CalcOperator() {
   let operator = prompt('operator', "+ | - | * | /");
+  switch (operator) {
+    case "-":
+    case "+":
+    case "*":
+    case "/":
+      return operator;
+    default:
+      return ErrorCalcOperator();
+  }
+}
 
+function ErrorCalcOperator() {
+  alert("Unkown operator");
+  return CalcOperator();
+}
+
+function Calcculator(operator) {
   switch (operator) {
     case "+":
-      sum = calculator.sum();
-      infoStartOne.textContent = "Result sum: " + sum;
+      result = sum(a, b);
+      infoStartOne.textContent = "Result sum: " + result;
       break;
     case "-":
-      sum = calculator.sub();
-      infoStartOne.textContent = "Result sum: " + sum;
+      result = sub(a, b);
+      infoStartOne.textContent = "Result sum: " + result;
       break;
     case "*":
-      sum = calculator.mult();
-      infoStartOne.textContent = "Result sum: " + sum;
+      result = mult(a, b);
+      infoStartOne.textContent = "Result sum: " + result;
       break;
     case "/":
-      sum = calculator.div();
-      infoStartOne.textContent = "Result sum: " + sum;
+      result = div(a, b);
+      infoStartOne.textContent = "Result sum: " + result;
       break;
     default:
-      alert("Unkown operator");
+      alert("Error");
       break;
   }
+}
+
+function sum(a, b) {
+  return a + b;
+}
+
+function sub(a, b) {
+  return a - b;
+}
+
+function mult(a, b) {
+  return a * b;
+}
+
+function div(a, b) {
+  return a / b;
 }
 
 button.addEventListener("click", myFunction);
