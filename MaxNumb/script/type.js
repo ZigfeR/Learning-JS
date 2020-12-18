@@ -1,4 +1,3 @@
-var info = document.getElementById("informer");
 var infoStartOne = document.getElementById("informer__textOne");
 var button = document.getElementById("button_value");
 
@@ -33,29 +32,36 @@ function isDisplayText() {
   infoStartOne.textContent = "Maximum entered number: " + max;
 }
 
+let numb = 1;
+
+function enteredNumber() {
+  let enterNumber = +prompt("Enter number (" + numb++ + ")", "");
+  return Number(enterNumber);
+}
+
 function isNumberOne() {
-  let enteredNumber = prompt('Enter number (1)', '');
-  return Number(enteredNumber);
+  let enterNumber = enteredNumber();
+  return Number(enterNumber);
 }
 
 function isNumberTwo() {
-  let enteredNumber = prompt('Enter number (2)', '');
-  return Number(enteredNumber);
+  let enterNumber = enteredNumber();
+  return Number(enterNumber);
 }
 
 function isNumberTree() {
-  let enteredNumber = prompt('Enter number (3)', '');
-  return Number(enteredNumber);
+  let enterNumber = enteredNumber();
+  return Number(enterNumber);
 }
 
 function isNumberFour() {
-  let enteredNumber = prompt('Enter number (4)', '');
-  return Number(enteredNumber);
+  let enterNumber = enteredNumber();
+  return Number(enterNumber);
 }
 
 function isNumberFive() {
-  let enteredNumber = prompt('Enter number (5)', '');
-  return Number(enteredNumber);
+  let enterNumber = enteredNumber();
+  return Number(enterNumber);
 }
 
 button.addEventListener("click", myFunction);
