@@ -6,38 +6,51 @@ infoStartOne.textContent = "Press the button to start";
 function myFunction() {
   isDisplayText();
 }
+const arrayNumbers = {
+  num1: 0,
+  num2: 0,
+  num3: 0,
+  num4: 0,
+  num5: 0,
+  num6: 0
+};
 
 function isDisplayText() {
-  let num1 = isNumber();
-  let num2 = isNumber();
-  let num3 = isNumber();
-  let num4 = isNumber();
-  let num5 = isNumber();
+  for (let key in arrayNumbers) {
+    arrayNumbers[key] = parsingNumbers(key);
+  }
+  let max = arrayNumbers.num1;
 
-  let max = num1;
-
-  if (max < num2) {
-    max = num2;
+  if (max < arrayNumbers.num2) {
+    max = arrayNumbers.num2;
   }
-  if (max < num3) {
-    max = num3;
+  if (max < arrayNumbers.num3) {
+    max = arrayNumbers.num3;
   }
-  if (max < num4) {
-    max = num4;
+  if (max < arrayNumbers.num4) {
+    max = arrayNumbers.num4;
   }
-  if (max < num5) {
-    max = num5;
+  if (max < arrayNumbers.num5) {
+    max = arrayNumbers.num5;
+  }
+  if (max < arrayNumbers.num6) {
+    max = arrayNumbers.num6;
   }
 
   infoStartOne.textContent = `Maximum entered number: ${max}`;
+  numb = 0;
 }
 
+function parsingNumbers() {
+  for (let key in arrayNumbers) {
+    let localOperator = arrayNumbers[key];
+    localOperator = isNumber();
+    return localOperator;
+  }
+}
 var numb = 0;
 
 function enteredNumber() {
-  if (numb == 5) {
-    numb = 0;
-  }
   let enterNumber = +prompt(`Enter number (${++numb})`, "");
   return enterNumber;
 }
