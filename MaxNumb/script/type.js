@@ -8,60 +8,43 @@ function myFunction() {
 }
 
 function isDisplayText() {
-  let nomberOneResult = isNumberOne();
-  let nomberTwoResult = isNumberTwo();
-  let nomberTreeResult = isNumberTree();
-  let nomberFourResult = isNumberFour();
-  let nomberFiveResult = isNumberFive();
+  let num1 = isNumber();
+  let num2 = isNumber();
+  let num3 = isNumber();
+  let num4 = isNumber();
+  let num5 = isNumber();
 
-  let max = nomberOneResult;
+  let max = num1;
 
-  if (max < nomberTwoResult) {
-    max = nomberTwoResult;
+  if (max < num2) {
+    max = num2;
   }
-  if (max < nomberTreeResult) {
-    max = nomberTreeResult;
+  if (max < num3) {
+    max = num3;
   }
-  if (max < nomberFourResult) {
-    max = nomberFourResult;
+  if (max < num4) {
+    max = num4;
   }
-  if (max < nomberFiveResult) {
-    max = nomberFiveResult;
+  if (max < num5) {
+    max = num5;
   }
 
-  infoStartOne.textContent = "Maximum entered number: " + max;
+  infoStartOne.textContent = `Maximum entered number: ${max}`;
 }
 
-let numb = 1;
+var numb = 0;
 
 function enteredNumber() {
-  let enterNumber = +prompt("Enter number (" + numb++ + ")", "");
-  return Number(enterNumber);
+  if (numb == 5) {
+    numb = 0;
+  }
+  let enterNumber = +prompt(`Enter number (${++numb})`, "");
+  return enterNumber;
 }
 
-function isNumberOne() {
+function isNumber() {
   let enterNumber = enteredNumber();
-  return Number(enterNumber);
-}
-
-function isNumberTwo() {
-  let enterNumber = enteredNumber();
-  return Number(enterNumber);
-}
-
-function isNumberTree() {
-  let enterNumber = enteredNumber();
-  return Number(enterNumber);
-}
-
-function isNumberFour() {
-  let enterNumber = enteredNumber();
-  return Number(enterNumber);
-}
-
-function isNumberFive() {
-  let enterNumber = enteredNumber();
-  return Number(enterNumber);
+  return enterNumber;
 }
 
 button.addEventListener("click", myFunction);
