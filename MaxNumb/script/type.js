@@ -8,25 +8,25 @@ function myFunction() {
 }
 
 function isDisplayText() {
-  let nomberOneResult = isNumberOne();
-  let nomberTwoResult = isNumberTwo();
-  let nomberTreeResult = isNumberTree();
-  let nomberFourResult = isNumberFour();
-  let nomberFiveResult = isNumberFive();
+  let num1 = isNumber();
+  let num2 = isNumber();
+  let num3 = isNumber();
+  let num4 = isNumber();
+  let num5 = isNumber();
 
-  let max = nomberOneResult;
+  let max = num1;
 
-  if (max < nomberTwoResult) {
-    max = nomberTwoResult;
+  if (max < num2) {
+    max = num2;
   }
-  if (max < nomberTreeResult) {
-    max = nomberTreeResult;
+  if (max < num3) {
+    max = num3;
   }
-  if (max < nomberFourResult) {
-    max = nomberFourResult;
+  if (max < num4) {
+    max = num4;
   }
-  if (max < nomberFiveResult) {
-    max = nomberFiveResult;
+  if (max < num5) {
+    max = num5;
   }
 
   infoStartOne.textContent = `Maximum entered number: ${max}`;
@@ -42,27 +42,7 @@ function enteredNumber() {
   return enterNumber;
 }
 
-function isNumberOne() {
-  let enterNumber = enteredNumber();
-  return enterNumber;
-}
-
-function isNumberTwo() {
-  let enterNumber = enteredNumber();
-  return enterNumber;
-}
-
-function isNumberTree() {
-  let enterNumber = enteredNumber();
-  return enterNumber;
-}
-
-function isNumberFour() {
-  let enterNumber = enteredNumber();
-  return enterNumber;
-}
-
-function isNumberFive() {
+function isNumber() {
   let enterNumber = enteredNumber();
   return enterNumber;
 }
