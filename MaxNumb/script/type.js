@@ -29,39 +29,42 @@ function isDisplayText() {
     max = nomberFiveResult;
   }
 
-  infoStartOne.textContent = "Maximum entered number: " + max;
+  infoStartOne.textContent = `Maximum entered number: ${max}`;
 }
 
-let numb = 1;
+var numb = 0;
 
 function enteredNumber() {
-  let enterNumber = +prompt("Enter number (" + numb++ + ")", "");
-  return Number(enterNumber);
+  if (numb == 5) {
+    numb = 0;
+  }
+  let enterNumber = +prompt(`Enter number (${++numb})`, "");
+  return enterNumber;
 }
 
 function isNumberOne() {
   let enterNumber = enteredNumber();
-  return Number(enterNumber);
+  return enterNumber;
 }
 
 function isNumberTwo() {
   let enterNumber = enteredNumber();
-  return Number(enterNumber);
+  return enterNumber;
 }
 
 function isNumberTree() {
   let enterNumber = enteredNumber();
-  return Number(enterNumber);
+  return enterNumber;
 }
 
 function isNumberFour() {
   let enterNumber = enteredNumber();
-  return Number(enterNumber);
+  return enterNumber;
 }
 
 function isNumberFive() {
   let enterNumber = enteredNumber();
-  return Number(enterNumber);
+  return enterNumber;
 }
 
 button.addEventListener("click", myFunction);
