@@ -18,11 +18,11 @@ function myFunction() {
 
 function isDisplayCalc() {
   let i = 1;
-  a = +prompt("Number (" + i++ + ")", 0);
+  a = +prompt(`Number (${i++})`, 0);
   let operator = CalcOperator();
-  b = +prompt("Number (" + i++ + ")", 0);
+  b = +prompt(`Number (${i++})`, 0);
   Calcculator(operator);
-  infoStartOne.textContent = "Result sum: " + result;
+  infoStartOne.textContent = `Result sum: ${result}`;
 }
 
 function CalcOperator() {
@@ -53,19 +53,15 @@ function Calcculator(operator) {
   switch (operator) {
     case operators.plus:
       result = sum(a, b);
-      infoStartOne.textContent = "Result sum: " + result;
       break;
     case operators.minus:
       result = sub(a, b);
-      infoStartOne.textContent = "Result sum: " + result;
       break;
     case operators.multiply:
       result = mult(a, b);
-      infoStartOne.textContent = "Result sum: " + result;
       break;
     case operators.divide:
       result = div(a, b);
-      infoStartOne.textContent = "Result sum: " + result;
       break;
   }
 }
