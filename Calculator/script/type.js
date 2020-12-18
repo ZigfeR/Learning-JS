@@ -1,4 +1,3 @@
-var info = document.getElementById("informer");
 var infoStartOne = document.getElementById("informer__textOne");
 var button = document.getElementById("button_value");
 
@@ -18,9 +17,10 @@ function myFunction() {
 }
 
 function isDisplayCalc() {
-  a = +prompt('Number (1)', 0);
+  let i = 1;
+  a = +prompt("Number (" + i++ + ")", 0);
   let operator = CalcOperator();
-  b = +prompt('Number (2)', 0);
+  b = +prompt("Number (" + i++ + ")", 0);
   Calcculator(operator);
   infoStartOne.textContent = "Result sum: " + result;
 }
