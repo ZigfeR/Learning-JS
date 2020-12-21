@@ -3,61 +3,40 @@ var button = document.getElementById("button_value");
 
 infoStartOne.textContent = "Press the button to start";
 
-function myFunction() {
-  isDisplayText();
+function buttonHandler() {
+  getMaxNumber();
+  calculatMaxNumber();
 }
-const arrayNumbers = {
-  num1: 0,
-  num2: 0,
-  num3: 0,
-  num4: 0,
-  num5: 0,
-  num6: 0
-};
+const arrayNumbers = [1, 2, 3, 4, 5];
 
-function isDisplayText() {
+function getMaxNumber() {
   for (let key in arrayNumbers) {
-    arrayNumbers[key] = parsingNumbers(key);
+    arrayNumbers[key] = getNumbers(++key);
   }
-  let max = arrayNumbers.num1;
+}
 
-  if (max < arrayNumbers.num2) {
-    max = arrayNumbers.num2;
-  }
-  if (max < arrayNumbers.num3) {
-    max = arrayNumbers.num3;
-  }
-  if (max < arrayNumbers.num4) {
-    max = arrayNumbers.num4;
-  }
-  if (max < arrayNumbers.num5) {
-    max = arrayNumbers.num5;
-  }
-  if (max < arrayNumbers.num6) {
-    max = arrayNumbers.num6;
+function calculatMaxNumber() {
+  let max = 0;
+  for (i = 0; i < arrayNumbers.length; i++) {
+    if (arrayNumbers[i] > max) {
+      max = arrayNumbers[i];
+    }
   }
 
   infoStartOne.textContent = `Maximum entered number: ${max}`;
-  numb = 0;
 }
 
-function parsingNumbers() {
+function getNumbers(numb) {
   for (let key in arrayNumbers) {
     let localOperator = arrayNumbers[key];
-    localOperator = isNumber();
+    localOperator = getUserPrompt(numb);
     return localOperator;
   }
 }
-var numb = 0;
 
-function enteredNumber() {
-  let enterNumber = +prompt(`Enter number (${++numb})`, "");
+function getUserPrompt(numb) {
+  let enterNumber = +prompt(`Enter number (${numb})`, "");
   return enterNumber;
 }
 
-function isNumber() {
-  let enterNumber = enteredNumber();
-  return enterNumber;
-}
-
-button.addEventListener("click", myFunction);
+button.addEventListener("click", buttonHandler);

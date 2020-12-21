@@ -3,8 +3,6 @@ var button = document.getElementById("button_value");
 
 infoStartOne.textContent = "Press the button to start Calculator";
 
-let a, b, result;
-
 const operators = {
   plus: "+",
   minus: "-",
@@ -12,21 +10,16 @@ const operators = {
   divide: "/"
 };
 
-function myFunction() {
-  isDisplayCalc();
-}
-
-function isDisplayCalc() {
-  let i = 1;
-  a = +prompt(`Number (${i++})`, 0);
+function сalculatorСall() {
+  let a = +prompt(`Number (1)`, 0);
   let operator = CalcOperator();
-  b = +prompt(`Number (${i++})`, 0);
-  Calcculator(operator);
+  let b = +prompt(`Number (2)`, 0);
+  let result = Calculator(operator, a, b);
   infoStartOne.textContent = `Result sum: ${result}`;
 }
 
 function CalcOperator() {
-  let localOperator = prompt('operator', promptStr());
+  let localOperator = prompt('operator', getOperatorSwift());
   for (let key in operators) {
     let verifyOperator = operators[key];
     if (verifyOperator == localOperator) {
@@ -36,12 +29,12 @@ function CalcOperator() {
   return ErrorCalcOperator();
 }
 
-function promptStr() {
-  let strng = "";
+function getOperatorSwift() {
+  let string = "";
   for (let key in operators) {
-    strng += operators[key] + " | ";
+    string += operators[key] + " | ";
   }
-  return strng;
+  return string;
 }
 
 function ErrorCalcOperator() {
@@ -49,37 +42,33 @@ function ErrorCalcOperator() {
   return CalcOperator();
 }
 
-function Calcculator(operator) {
+function Calculator(operator, a, b) {
   switch (operator) {
     case operators.plus:
-      result = sum(a, b);
-      break;
+      return summing(a, b);
     case operators.minus:
-      result = sub(a, b);
-      break;
+      return subtraction(a, b);
     case operators.multiply:
-      result = mult(a, b);
-      break;
+      return multiply(a, b);
     case operators.divide:
-      result = div(a, b);
-      break;
+      return divide(a, b);
   }
 }
 
-function sum(a, b) {
+function summing(a, b) {
   return a + b;
 }
 
-function sub(a, b) {
+function subtraction(a, b) {
   return a - b;
 }
 
-function mult(a, b) {
+function multiply(a, b) {
   return a * b;
 }
 
-function div(a, b) {
+function divide(a, b) {
   return a / b;
 }
 
-button.addEventListener("click", myFunction);
+button.addEventListener("click", сalculatorСall);
