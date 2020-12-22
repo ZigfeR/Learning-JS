@@ -1,84 +1,80 @@
-let HeightStart = +prompt("Enter the seed width", "")
-let HeighEnd = +prompt("Enter the final number of width", "")
-let WidthStart = +prompt("Enter the starting height number", "")
-let WidthEnd = +prompt("Enter the final height number", "")
+let HeightStart = +prompt("Enter the seed height", "11")
+let HeighEnd = +prompt("Enter the final number of height", "24")
+let WidthStart = +prompt("Enter the starting width number", "8")
+let WidthEnd = +prompt("Enter the final width number", "20")
 
-let LocalSpaceH = HeighEnd;
-let LocalSpaceW = WidthEnd;
+function showTable() {
+  creatingTableBody();
+  creatingTableHead(WidthStart);
+  creatingTableSum(HeightStart);
+}
 
-let count1 = 1;
-let sum1 = HeighEnd * WidthEnd;
+function creatingTableBody() {
+  let div = document.createElement("div")
+  div.innerHTML = ""
+  document.body.appendChild(div)
+  div.setAttribute("id", "table-container")
 
-let LocalSpaceCountW = 0;
-let LocalSpaceCountH = 0;
-//Пробелы
-for (; LocalSpaceW >= 1; LocalSpaceW /= 10) {
-  LocalSpaceCountW++;
+  let table = document.createElement("table")
+  table.innerHTML = ""
+  document.body.appendChild(table)
+  table.setAttribute("id", "table")
+  div.appendChild(table)
 }
-for (; LocalSpaceH >= 1; LocalSpaceH /= 10) {
-  LocalSpaceCountH++;
-}
-for (; sum1 >= 1; count1++, sum1 /= 10);
-//Верхняя линия
-for (let TopLine = 0; TopLine < LocalSpaceCountH; TopLine++) {
-  document.write("&nbsp;&nbsp;");
-}
-document.write("|");
-for (let lenghth = HeightStart; lenghth <= HeighEnd; lenghth++) {
-  let LocalCount = 0;
-  let LocalSpaceLenghth = lenghth;
-  for (; LocalSpaceLenghth >= 1; LocalSpaceLenghth /= 10) {
-    LocalCount++;
-  }
-  for (; LocalCount < count1; LocalCount++) {
-    document.write("&nbsp;&nbsp;");
-  }
-  document.write(lenghth);
-}
-document.writeln("<br>");
-//Таблица
-for (let Table = WidthStart; Table <= WidthEnd; Table++) {
-  //Пунктир
-  if (Table == WidthStart) {
-    let DotLine = 0;
-    for (; DotLine < LocalSpaceCountH; DotLine++) {
-      document.write("-");
+
+let arrayTableHeight = new Array();
+let arrayTableWidth = new Array();
+
+function creatingTableHead(startWidth) {
+  for (let headHeight = 0; headHeight < 1; headHeight++) {
+    let tr = document.createElement("tr")
+    tr.innerHTML = ""
+    document.getElementById("table").appendChild(tr)
+    tr.setAttribute("id", "tr")
+    for (let j = 0; j < 1; j++) {
+      let td = document.createElement("th")
+      td.innerHTML = "&nbsp;"
+      tr.appendChild(td)
     }
-    document.write("+");
-    for (; DotLine <= (count1 * +(HeighEnd - HeightStart) + LocalSpaceCountH + count1) * 1.5 - 2; DotLine++) {
-      document.write("-");
+    for (let numberSeries = startWidth; numberSeries < WidthEnd + 1; numberSeries++) {
+      arrayTableHeight.push(numberSeries)
+      let td = document.createElement("th")
+      td.innerHTML = startWidth++
+      tr.appendChild(td)
     }
-
-    document.writeln("<br>");
-
   }
-  //Сумма
-  for (let Sum1 = HeightStart; Sum1 <= HeighEnd; Sum1++) {
-    if (Sum1 == HeightStart) {
-      let LocalCount1 = 0;
-      let LocalSpaceC = Table;
+}
 
-      for (; LocalSpaceC >= 1; LocalSpaceC /= 10) {
-        LocalCount1++;
+let difference = WidthEnd - WidthStart + 2;
+
+function creatingTableSum(startHeight) {
+  for (let tableHeight = startHeight; tableHeight < HeighEnd + 1; tableHeight++) {
+    arrayTableWidth.push(tableHeight)
+    let tr = document.createElement("tr")
+    tr.innerHTML = ""
+    document.getElementById("table").appendChild(tr)
+    tr.setAttribute("id", "tr")
+    //left column
+    for (let j = 0; j < 1; j++) {
+      let td = document.createElement("th")
+      td.innerHTML = startHeight++
+      tr.appendChild(td)
+    }
+    //table sum
+    for (let tableSum = 1; tableSum < difference; tableSum++) {
+      let head
+      let width
+      for (t = 0; t < arrayTableWidth.length; t++) {
+        for (p = 0; p < tableSum; p++) {
+          head = arrayTableHeight[p]
+        }
+        width = arrayTableWidth[t]
       }
-      for (; LocalCount1 < LocalSpaceCountW; LocalCount1++) {
-        document.write("&nbsp;&nbsp;");
-      }
-
-      document.write(Table);
-      document.write("|");
+      let sum = head * width
+      let td = document.createElement("td")
+      td.innerHTML = sum
+      tr.appendChild(td)
     }
-    let LocalSpaceOne = Table * Sum1;
-    let LocalCount = 0;
-    for (; LocalSpaceOne >= 1; LocalSpaceOne /= 10) {
-      LocalCount++;
-    }
-    for (; LocalCount < count1; LocalCount++) {
-      document.write("&nbsp;&nbsp;");
-    }
-    document.write(Table * Sum1);
   }
-  document.writeln("<br>");
-
 }
-document.writeln("<br>");
+showTable();
