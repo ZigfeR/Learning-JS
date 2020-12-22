@@ -1,0 +1,69 @@
+body {
+    background: #f4f8fa;
+    margin: 0;
+}
+
+.body__pifagore,
+#table-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 2% 0;
+}
+
+p {
+    color: teal;
+    font-size: 22pt;
+}
+
+th,
+p:hover,
+td:hover {
+    color: #fff;
+}
+
+table {
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+td,
+th {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    font-family: Tahoma;
+    border: 2px solid rgba(105, 191, 225, 0.5);
+    cursor: none
+}
+
+th {
+    background: #69BFE1;
+    font-weight: bold;
+}
+
+td {
+    color: #a347b3;
+}
+
+tr:hover,
+td:hover::before {
+    background: #a347b3;
+}
+
+td:hover {
+    font-weight: bold;
+}
+
+td:hover::before {
+    content: '';
+    position: absolute;
+    height: 2000px;
+    width: 100%;
+    left: 0;
+    top: -1000px;
+    z-index: -1;
+}
