@@ -4,12 +4,12 @@ let WidthStart = +prompt("Enter the starting width number", "8")
 let WidthEnd = +prompt("Enter the final width number", "20")
 
 function showTable() {
-  creatingTableBody();
-  creatingTableHead(WidthStart);
-  creatingTableSum(HeightStart);
+  createTableBody();
+  createTableHead(WidthStart);
+  createTableSum(HeightStart);
 }
 
-function creatingTableBody() {
+function createTableBody() {
   let div = document.createElement("div")
   div.innerHTML = ""
   document.body.appendChild(div)
@@ -25,7 +25,7 @@ function creatingTableBody() {
 let arrayTableHeight = new Array();
 let arrayTableWidth = new Array();
 
-function creatingTableHead(startWidth) {
+function createTableHead(startWidth) {
   for (let headHeight = 0; headHeight < 1; headHeight++) {
     let tr = document.createElement("tr")
     tr.innerHTML = ""
@@ -47,7 +47,7 @@ function creatingTableHead(startWidth) {
 
 let difference = WidthEnd - WidthStart + 2;
 
-function creatingTableSum(startHeight) {
+function createTableSum(startHeight) {
   for (let tableHeight = startHeight; tableHeight < HeighEnd + 1; tableHeight++) {
     arrayTableWidth.push(tableHeight)
     let tr = document.createElement("tr")
