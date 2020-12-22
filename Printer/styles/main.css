@@ -1,0 +1,11 @@
+.button {
+    margin: 200px auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+}
+
+.button_value {
+    margin-left: 15px;
+}
