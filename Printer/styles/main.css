@@ -1,0 +1,26 @@
+.informer,
+#container {
+    align-content: center;
+    text-align: center;
+    margin-top: 5%;
+}
+
+#button,
+.button_value,
+#text,
+p {
+    margin: 0 auto;
+}
+p{
+    margin: 15px auto;
+}
+#button {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-flow: column;
+}
+
+#text {
+    width: 40%;
+}
