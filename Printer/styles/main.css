@@ -1,26 +1,45 @@
 .informer,
-#container {
+.container {
     align-content: center;
     text-align: center;
-    margin-top: 5%;
+    margin-top: 2%;
 }
 
-#button,
-.button_value,
-#text,
-p {
+.container {
+    width: 75%;
     margin: 0 auto;
 }
-p{
-    margin: 15px auto;
+
+.hr {
+    width: 55%;
+
 }
-#button {
+
+.body__text {
     display: flex;
     justify-content: center;
     align-content: center;
     flex-flow: column;
 }
 
-#text {
-    width: 40%;
+.body__text,
+.input__text {
+    margin: 0 auto;
+}
+
+.informer__text,
+p {
+    margin: 10px auto;
+}
+
+.text__page {
+    font-family: arial;
+}
+
+.text__value {
+    font-style: italic;
+}
+
+.input__text {
+    width: 50%;
 }

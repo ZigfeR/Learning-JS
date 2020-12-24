@@ -5,17 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Printer</title>
-    <script async src="script/type.js"></script>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 
 <body>
     <div id="informer" class="informer">
-        <p id="informer__textOne"></p>
+        <h2 id="informer__text" class="informer__text"></h2>
     </div>
-    <div id="button">
-        <input type="text" id="text" placeholder="Enter your text" onkeypress="myFunction(event)"></input>
+    <div id="body__text" class="body__text">
+        <input type="text" id="input__text" class="input__text" placeholder="Enter your text"
+            onkeypress="createPrinter(event)"></input>
     </div>
+    <script src="script/type.js"></script>
 </body>
+
 
 </html>
