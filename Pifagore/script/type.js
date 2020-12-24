@@ -4,9 +4,9 @@ let WidthStart = +prompt("Enter the starting width number", "8")
 let WidthEnd = +prompt("Enter the final width number", "20")
 
 function showTable() {
-  createTableBody();
-  createTableHead(WidthStart);
-  createTableSum(HeightStart);
+  createTableBody()
+  createTableHead(WidthStart)
+  createTableSum(HeightStart)
 }
 
 function createTableBody() {
@@ -22,8 +22,8 @@ function createTableBody() {
   div.appendChild(table)
 }
 
-let arrayTableHeight = new Array();
-let arrayTableWidth = new Array();
+let arrayTableHeight = new Array()
+let arrayTableWidth = new Array()
 
 function createTableHead(startWidth) {
   for (let headHeight = 0; headHeight < 1; headHeight++) {
