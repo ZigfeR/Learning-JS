@@ -1,34 +1,32 @@
-var infoStartOne = document.getElementById("informer__textOne");
-var button = document.getElementById("button_value");
-var text = document.getElementById("text");
+var infoStartOne = document.getElementById("informer__text");
+var text = document.getElementById("input__text");
 var i = 1;
 
 infoStartOne.textContent = "Write the text you want to print";
 
-function myFunction(event) {
-    var x = event.which || event.keyCode;
-    if (x == 13) {
-        show();
-        text.value = "";
-        return false;
-    }
+function createPrinter(event) {
+  var x = event.which || event.keyCode;
+  if (x == 13) {
+    let bodyPrinter = showPage("div", "class", "container", "");
+
+    let PagePrinter = showPage("p", "class", "text__page", `Page -${i++}-`);
+    bodyPrinter.appendChild(PagePrinter);
+
+    let valuePrinter = showPage("p", "class", "text__value", `"${text.value}"`);
+    bodyPrinter.appendChild(valuePrinter);
+
+    let hrPrinter = showPage("hr", "class", "hr", "");
+    bodyPrinter.appendChild(hrPrinter);
+
+    text.value = "";
+    return false;
+  }
 }
 
-function show() {
-    let div = document.createElement("div");
-    div.innerHTML = "";
-    document.body.appendChild(div);
-    div.setAttribute("id", "container");
-
-    let table = document.createElement("p");
-    table.innerHTML = `Page -${i++}-`;
-    document.body.appendChild(table);
-    table.setAttribute("id", "p");
-    div.appendChild(table);
-
-    let tab = document.createElement("p");
-    tab.innerHTML = `"${text.value}"`;
-    document.body.appendChild(tab);
-    tab.setAttribute("id", "p");
-    div.appendChild(tab);
+function showPage(elem, attribute, attributeName, getString) {
+  let variable = document.createElement(`${elem}`);
+  variable.innerHTML = `${getString}`;
+  document.body.appendChild(variable);
+  variable.setAttribute(`${attribute}`, `${attributeName}`);
+  return variable;
 }
