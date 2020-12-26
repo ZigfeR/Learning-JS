@@ -1,0 +1,45 @@
+.informer,
+.container {
+    align-content: center;
+    text-align: center;
+    margin-top: 2%;
+}
+
+.container {
+    width: 75%;
+    margin: 0 auto;
+}
+
+.hr {
+    width: 55%;
+
+}
+
+.body__text {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-flow: column;
+}
+
+.body__text,
+.input__text {
+    margin: 0 auto;
+}
+
+.informer__text,
+p {
+    margin: 10px auto;
+}
+
+.text__page {
+    font-family: arial;
+}
+
+.text__value {
+    font-style: italic;
+}
+
+.input__text {
+    width: 50%;
+}
