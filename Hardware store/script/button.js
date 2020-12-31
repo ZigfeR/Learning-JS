@@ -1,4 +1,15 @@
-const quantitySpan = document.querySelectorAll('.quantity__span');
+const quantitySpan = document.getElementsByClassName('quantity__span');
+
+const mfuClone = {};
+
+for (let key in mfu) {
+  if (mfu.hasOwnProperty(key)) {
+    mfuClone[key] = {
+      ...mfu[key],
+      count: 0
+    };
+  }
+}
 
 document.onclick = event => {
   if (event.target.classList.contains('plus')) {
@@ -8,38 +19,34 @@ document.onclick = event => {
     minusFunction(event.target.dataset.id);
   }
 }
-
-let i = 0;
-let iMax = mfu[279577]["quantity"];
+const setQuantitySpan = (quantity, id) => {
+  for (let j = 0; j < quantitySpan.length; j++) {
+    let curentId = quantitySpan[j].dataset.id;
+    if (curentId == id) {
+      quantitySpan[j].innerHTML = `${quantity}`;
+    }
+  }
+}
 
 const minusFunction = id => {
-  quantitySpan[0].innerHTML = `${--i}`;
-  if (i <= 0) {
-    i = 0;
-    quantitySpan[0].innerHTML = `${i}`;
-    mfu[id]["quantity"] = iMax;
+  --mfuClone[id].count;
+  if (mfuClone[id].count < 0) {
+    mfuClone[id].count = 0;
+    setQuantitySpan(mfuClone[id].count, id);
     renderCart();
     return
   }
-  mfu[id]["quantity"]++;
+  setQuantitySpan(mfuClone[id].count, id);
   renderCart();
 }
 
 const plusFunction = id => {
-  if (mfu[id]["quantity"] == 0) {
-    deleteFunction(id);
-    return true
+  if (mfuClone[id].count < mfuClone[id]["quantity"]) {
+    setQuantitySpan(++mfuClone[id].count, id);
+    renderCart();
   }
-  quantitySpan[0].innerHTML = `${++i}`;
-  mfu[id]["quantity"]--;
-  renderCart();
-}
-
-const deleteFunction = id => {
-  mfu[id]["quantity"] = 0;
-  renderCart();
 }
 
 const renderCart = () => {
-  console.log(mfu)
+  console.log(JSON.stringify(mfuClone))
 }
