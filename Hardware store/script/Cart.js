@@ -12,38 +12,38 @@ const productsBtn = document.querySelectorAll('.product__btn'),
   localPrices = document.getElementsByClassName('modal-full-price')
 
 
-const mfuClone = {};
-const mfuPrice = {};
-mfuPrice.fullQuantity = 0;
+let mfuDictionary = {};
+const mfuCart = {
+  fullQuantity: 0,
+  price: 0
+};
 
-let price = 0;
-
-
-const priceWithoutSpaces = (str) => {
+const getPriceWithoutSpaces = (str) => {
   return str.replace(/\s/g, '');
 };
 
-const normalPrice = (str) => {
+const getNormalPrice = (str) => {
   return String(str).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ');
 };
 
 const plusFullPrice = (currentPrice) => {
-  return price += currentPrice;
+  return mfuCart.price += currentPrice;
 };
 
 const minusFullPrice = (currentPrice) => {
-  return price -= currentPrice;
+  return mfuCart.price -= currentPrice;
 };
 
-const printQuantity = () => {
+const getPrintQuantity = () => {
   let productsListLength = cartProductsList.querySelector('.simplebar-content').children.length;
   productsListLength > 0 ? cart.classList.add('active') : cart.classList.remove('active');
 };
 
-const printFullPrice = () => {
-  fullPrice.textContent = `${normalPrice(price)} грн`;
+const getPrintFullPrice = () => {
+  fullPrice.textContent = `${getNormalPrice(mfuCart.price)} грн`;
 };
-
+//----------------------mini cart------------------------------
+//поменять SVG
 const generateCartProduct = (img, title, price, id) => {
   return `
         <li class="cart-content__item">
@@ -51,7 +51,7 @@ const generateCartProduct = (img, title, price, id) => {
                 <img src="${img}" alt="" class="cart-product__img">
                 <div class="cart-product__text">
                     <h3 class="cart-product__title">${title}</h3>
-                    <span class="cart-product__price">${normalPrice(price)}</span>
+                    <span class="cart-product__price">${getNormalPrice(price)}</span>
                 </div>
                 <button class="cart-product__delete" aria-label="Удалить товар">
                     <svg aria-hidden="true" height="24" pointer-events="none" width="24">
@@ -73,42 +73,7 @@ const generateCartProduct = (img, title, price, id) => {
         </li>
     `;
 };
-
-const deleteProducts = (productParent) => {
-  let id = productParent.querySelector('.cart-product').dataset.id;
-  document.querySelector(`.product[data-id="${id}"]`).querySelector('.product__btn').disabled = false;
-
-  let currentPrice = parseInt(priceWithoutSpaces(productParent.querySelector('.cart-product__price').textContent));
-  minusFullPrice(currentPrice);
-  printFullPrice();
-  productParent.remove();
-
-  delete mfuClone[id].id;
-  delete mfuClone[id].img;
-  delete mfuClone[id].count;
-  delete mfuClone[id].price;
-  delete mfuClone[id].localPrice;
-  displayCard()
-
-  mfuPrice.fullQuantity -= 1;
-  cartQuantity.textContent = mfuPrice.fullQuantity;
-  printQuantity();
-};
-
-const deleteresProducts = (productParent) => {
-  let id = productParent.dataset.id;
-
-  let currentPrice = mfuClone[id].localPrice;
-  minusFullPrice(currentPrice);
-  printFullPrice();
-  productParent.remove();
-
-
-  mfuPrice.fullQuantity -= 1;
-  cartQuantity.textContent = mfuPrice.fullQuantity;
-  printQuantity();
-};
-
+//Call "btn"
 productsBtn.forEach(el => {
   el.addEventListener('click', (e) => {
     let self = e.currentTarget;
@@ -116,73 +81,66 @@ productsBtn.forEach(el => {
     let id = parent.dataset.id;
     let img = parent.querySelector('.image-switch__img img').getAttribute('src');
     let title = parent.querySelector('.product__title').textContent;
-    let priceString = priceWithoutSpaces(parent.querySelector('.product-price__current').textContent);
-    let priceNumber = parseInt(priceWithoutSpaces(parent.querySelector('.product-price__current').textContent));
+    let priceString = getPriceWithoutSpaces(parent.querySelector('.product-price__current').textContent);
+    let priceNumber = parseInt(getPriceWithoutSpaces(parent.querySelector('.product-price__current').textContent));
 
     plusFullPrice(priceNumber);
 
-    parseInt(printFullPrice());
+    parseInt(getPrintFullPrice());
 
     cartProductsList.querySelector('.simplebar-content').insertAdjacentHTML('afterbegin', generateCartProduct(img, title, priceString, id));
 
-
-    mfuPrice.fullQuantity += 1;
-    cartQuantity.textContent = mfuPrice.fullQuantity;
-    printQuantity();
+    mfuCart.fullQuantity += 1;
+    cartQuantity.textContent = mfuCart.fullQuantity;
+    getPrintQuantity();
 
     //Cloning an array
     for (let key in mfu) {
       if (mfu.hasOwnProperty(key)) {
-        mfuClone[id] = {
+        mfuDictionary[id] = {
           ...mfu[id],
           id: id,
           img: img,
-          count: 1,
           price: priceNumber,
-          localPrice: priceNumber
+          localPrice: priceNumber,
+          count: 1
         };
       }
     }
-    mfuPrice.fullPrice = price;
-    displayCard()
-    totalPrices.textContent = `${normalPrice(price)} грн`;
+
+    mfuCart.fullPrice = mfuCart.price;
+    totalPrices.textContent = `${getNormalPrice(mfuCart.price)} грн`;
     self.disabled = true;
+
+    console.log(mfuDictionary);
   });
 });
 
-cartProductsList.addEventListener('click', (e) => {
-  if (e.target.classList.contains('cart-product__delete')) {
-    deleteProducts(e.target.closest('.cart-content__item'));
-  }
-});
+//------------------modal------------------------
 
-modalCart.addEventListener('click', (e) => {
-  if (e.target.classList.contains('modal__delete')) {
-    deleteresProducts(e.target.closest('.modal-cart__product'));
-  }
-});
 modalBtn.onclick = function () {
-  modal.style.display = "flex"
+  displayCard();
+  modal.style.display = "block";
 }
 
 closeBtn.onclick = function () {
-  modal.style.display = "none"
+  modal.style.display = "none";
 }
 
 window.onclick = function (e) {
   if (e.target == modal) {
-    modal.style.display = "none"
+    modal.style.display = "none";
   }
 }
 
 function displayCard() {
-  if (mfuClone && modal) {
+  if (mfuDictionary && modal) {
     modalCart.innerHTML = "";
-    Object.values(mfuClone).map(item => {
+    Object.values(mfuDictionary).map(item => {
       modalCart.innerHTML += `
             <article class="modal-cart__product" data-id="${item.id}">
                 <header>
-                    <a class="modal-remove">
+                    <a class="modal-remove" aria-label="Удалить товар">
                         <img src="${item.img}" alt="" class="modal-cart-product__img">
                         <h3 class="modal__delete">Удалить товар</h3>
                     </a>
@@ -199,13 +157,60 @@ function displayCard() {
                         <button class="quantity__btn minus" data-id="${item.id}">-</button>
                         <span class="quantity__span counter" data-id="${item.id}">${item.count}</span>
                         <button class="quantity__btn plus" data-id="${item.id}">+</button>
-                        <h2 class="modal-full-price" data-id="${item.id}">${normalPrice(item.localPrice)} грн</h2>
-                        <h2 class="modal-price" data-id="${item.id}">${normalPrice(item.localPrice)} грн</h2>
+                        <h2 class="modal-full-price" data-id="${item.id}">${getNormalPrice(item.localPrice)} грн</h2>
+                        <h2 class="modal-price" data-id="${item.id}">${getNormalPrice(item.localPrice)} грн</h2>
                     </footer>
                 </div>
             </article>
     `
     })
-    console.log(mfuClone);
+    console.log(mfuDictionary);
   }
 }
+
+// Deleted Cart
+const deleteProducts = (productParent) => {
+  let id = productParent.querySelector('.cart-product').dataset.id;
+  document.querySelector(`.product[data-id="${id}"]`).querySelector('.product__btn').disabled = false;
+
+  let currentPrice = parseInt(getPriceWithoutSpaces(productParent.querySelector('.cart-product__price').textContent));
+  minusFullPrice(currentPrice);
+  getPrintFullPrice();
+  productParent.remove();
+
+  mfuDictionary[id] = null;
+  mfuCart.fullQuantity -= 1;
+  cartQuantity.textContent = mfuCart.fullQuantity;
+  getPrintQuantity();
+
+  console.log(mfuDictionary);
+};
+
+const deleteCard = (productParent) => {
+  let id = productParent.dataset.id;
+  document.querySelector(`.product[data-id="${id}"]`).querySelector('.product__btn').disabled = false;
+
+  let currentPrice = mfuDictionary[id].localPrice;
+  minusFullPrice(currentPrice);
+  getPrintFullPrice();
+  productParent.remove();
+
+  mfuDictionary[id] = null;
+  mfuCart.fullQuantity -= 1;
+  cartQuantity.textContent = mfuCart.fullQuantity;
+  getPrintQuantity();
+
+  console.log(mfuDictionary);
+};
+
+modalCart.addEventListener('click', (e) => {
+  if (e.target.classList.contains('modal__delete')) {
+    deleteCard(e.target.closest('.modal-cart__product'));
+  }
+});
+
+cartProductsList.addEventListener('click', (e) => {
+  if (e.target.classList.contains('cart-product__delete')) {
+    deleteProducts(e.target.closest('.cart-content__item'));
+  }
+});

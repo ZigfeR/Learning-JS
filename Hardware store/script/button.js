@@ -1,25 +1,25 @@
 const plusLocalPrice = (currentPrice, id) => {
-  mfuClone[id].localPrice += currentPrice
-  mfuPrice.fullPrice += currentPrice;
-  price += currentPrice;
+  mfuDictionary[id].localPrice += currentPrice
+  mfuCart.fullPrice += currentPrice;
+  mfuCart.price += currentPrice;
 
-  mfuPrice.fullQuantity += 1;
+  mfuCart.fullQuantity += 1;
 
 };
 
 const minusLocalPrice = (currentPrice, id) => {
-  mfuClone[id].localPrice -= currentPrice
-  mfuPrice.fullPrice -= currentPrice;
-  price -= currentPrice;
+  mfuDictionary[id].localPrice -= currentPrice
+  mfuCart.fullPrice -= currentPrice;
+  mfuCart.price -= currentPrice;
 
-  mfuPrice.fullQuantity -= 1;
+  mfuCart.fullQuantity -= 1;
 };
 
 const setValuePrice = (id) => {
   for (let j = 0; j < localPrices.length; j++) {
     let curentId = localPrices[j].dataset.id;
     if (curentId == id) {
-      localPrices[j].innerHTML = `${normalPrice(mfuClone[id].localPrice)} грн`;
+      localPrices[j].innerHTML = `${normalPrice(mfuDictionary[id].localPrice)} грн`;
     }
   }
 }
@@ -45,29 +45,29 @@ const setQuantitySpan = (quantity, id) => {
 
 //Adding an item to the cart
 const minusFunction = id => {
-  --mfuClone[id].count;
-  if (mfuClone[id].count < 1) {
-    mfuClone[id].count = 1;
-    setQuantitySpan(mfuClone[id].count, id);
+  --mfuDictionary[id].count;
+  if (mfuDictionary[id].count < 1) {
+    mfuDictionary[id].count = 1;
+    setQuantitySpan(mfuDictionary[id].count, id);
     return
   }
-  minusLocalPrice(mfuClone[id].price, id)
-  setQuantitySpan(mfuClone[id].count, id);
+  minusLocalPrice(mfuDictionary[id].price, id)
+  setQuantitySpan(mfuDictionary[id].count, id);
   setValuePrice(id);
-  totalPrices.textContent = `${normalPrice(mfuPrice.fullPrice)} грн`;
+  totalPrices.textContent = `${normalPrice(mfuCart.fullPrice)} грн`;
   printFullPrice();
-  cartQuantity.textContent = mfuPrice.fullQuantity;
+  cartQuantity.textContent = mfuCart.fullQuantity;
 
 }
 //Removing an item from the cart
 const plusFunction = id => {
-  if (mfuClone[id].count < mfuClone[id]["quantity"]) {
-    plusLocalPrice(mfuClone[id].price, id)
-    setQuantitySpan(++mfuClone[id].count, id);
+  if (mfuDictionary[id].count < mfuDictionary[id]["quantity"]) {
+    plusLocalPrice(mfuDictionary[id].price, id)
+    setQuantitySpan(++mfuDictionary[id].count, id);
     setValuePrice(id);
-    totalPrices.textContent = `${normalPrice(mfuPrice.fullPrice)} грн`;
+    totalPrices.textContent = `${normalPrice(mfuCart.fullPrice)} грн`;
     printFullPrice();
-    cartQuantity.textContent = mfuPrice.fullQuantity;
+    cartQuantity.textContent = mfuCart.fullQuantity;
 
   }
 
@@ -75,6 +75,6 @@ const plusFunction = id => {
 
 //event overview
 // const renderCart = () => {
-//   // console.log(JSON.stringify(mfuClone))
-//   console.log(mfuClone);
+//   // console.log(JSON.stringify(mfuDictionary))
+//   console.log(mfuDictionary);
 // }
