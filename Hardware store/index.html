@@ -1,17 +1,240 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hardware store</title>
-    <link rel="shortcut icon" href="https://www.flaticon.com/svg/static/icons/svg/290/290957.svg" type="image/svg">
-    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="shortcut icon" href="icon/ico.svg" type="image/svg">
     <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
+    <header class="header">
+        <div class="container">
+            <nav class="header__nav nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="" class="nav__link">Каталог</a></li>
+                    <li class="nav__item"><a href="" class="nav__link">Акции</a></li>
+                    <li class="nav__item"><a href="" class="nav__link">Оплата и доставка</a></li>
+                    <li class="nav__item"><a href="" class="nav__link">Работа в компании</a></li>
+                    <li class="nav__item"><a href="" class="nav__link">Контакты</a></li>
+                </ul>
+                <div class="header__cart cart" tabindex="0">
+                    <div class="cart__text">
+                        <svg _ngcontent-c11="" class="cart__svg" aria-hidden="true" height="40" width="40">
+                            <use _ngcontent-c11="" xlink:href="#icon-header-basket"
+                                xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <svg viewBox="0 0 40 40" id="icon-header-basket">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M0.5 4.5C0.5 3.67157 1.17157 3 2 3H5.4264C7.29819 3 8.97453 4.15869 9.63602 5.9097L10.4264 8.00178C10.4503 8.00062 10.4745 8.00002 10.4987 8L34.0093 7.98001C37.2162 7.97728 39.3967 11.2342 38.1722 14.1982L34.3031 23.5639C33.8485 24.6643 32.8658 25.4581 31.6944 25.6711L18.7279 28.0286C16.5907 28.4172 14.481 27.2236 13.7133 25.1915L6.8296 6.9699C6.60911 6.38623 6.05033 6 5.4264 6H2C1.17157 6 0.5 5.32843 0.5 4.5ZM11.5587 10.9991L16.5197 24.1313C16.7756 24.8087 17.4789 25.2065 18.1913 25.077L31.1577 22.7195C31.3251 22.689 31.4655 22.5756 31.5304 22.4184L35.3995 13.0527C35.8077 12.0648 35.0809 10.9791 34.0119 10.98L11.5587 10.9991Z">
+                                    </path>
+                                    <circle cx="13.5" cy="34" r="3"></circle>
+                                    <circle cx="31.5" cy="34" r="3"></circle>
+                                </svg>
+                            </use>
+                        </svg>
+                        <span class="cart__quantity">0</span>
+                    </div>
+                    <div class="cart-content">
+                        <ul class="cart-content__list" data-simplebar>
+                        </ul>
+                        <div class="cart-content__bottom">
+                            <div class="cart-content__fullprice">
+                                <span>Итого:</span>
+                                <span class="fullprice">90 789 грн</span>
+                            </div>
+                            <div class="cart-content__btn btn">Перейти в корзину</div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main class="content">
+        <div class="container">
+            <div class="products-content grid-container">
+                <ul class="products-grid">
+                    <li class="products-grid__item">
+                        <article class="product" data-id="279577">
+                            <a href="#" class="product__image">
+                                <div class="product__switch image-switch">
+                                    <div class="image-switch__item">
+                                        <div class="image-switch__img"><img
+                                                src="https://img.ktc.ua/img/base/1_505/4/281664.jpg" alt="МФУ">
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="product__image-pagination image-pagination" aria-hidden="true"></ul>
+                            </a>
+                            <h3 class="product__title">
+                                <a href="#">МФУ Canon PIXMA G7040 with Wi-Fi (3114C009)</a>
+                            </h3>
+                            <div class="product__props">
+                                <span class="product__rating">
+                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7.04894 0.92705C7.3483 0.00573924 8.6517 0.00573965 8.95106 0.92705L10.0206 4.21885C10.1545 4.63087 10.5385 4.90983 10.9717 4.90983H14.4329C15.4016 4.90983 15.8044 6.14945 15.0207 6.71885L12.2205 8.75329C11.87 9.00793 11.7234 9.4593 11.8572 9.87132L12.9268 13.1631C13.2261 14.0844 12.1717 14.8506 11.388 14.2812L8.58779 12.2467C8.2373 11.9921 7.7627 11.9921 7.41221 12.2467L4.61204 14.2812C3.82833 14.8506 2.77385 14.0844 3.0732 13.1631L4.14277 9.87132C4.27665 9.4593 4.12999 9.00793 3.7795 8.75329L0.979333 6.71885C0.195619 6.14945 0.598395 4.90983 1.56712 4.90983H5.02832C5.46154 4.90983 5.8455 4.63087 5.97937 4.21885L7.04894 0.92705Z" />
+                                    </svg>
+                                    4,5
+                                </span>
+                                <span class="product__testimonials">83 отзыва</span>
+                            </div>
+                            <div class="product__info">
+                                <span class="product__term">Артикул: 279577</span>
+                                <span class="product__available">В наличии: 13 шт</span>
+                            </div>
+                            <div class="product__price product-price">
+                                <span class="product-price__current">13 139 грн</span>
+                                <span class="product-price__old">13 139 грн</span>
+                            </div>
+                            <button class="product__btn btn">Добавить в корзину</button>
+                        </article>
+                    </li>
+                    <li class="products-grid__item">
+                        <article class="product" data-id="247134">
+                            <a href="#" class="product__image">
+                                <div class="product__switch image-switch">
+                                    <div class="image-switch__item">
+                                        <div class="image-switch__img"><img
+                                                src="https://img.ktc.ua/img/base/1_505/1/238341.jpg" alt="МФУ">
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="product__image-pagination image-pagination" aria-hidden="true"></ul>
+                            </a>
+                            <h3 class="product__title">
+                                <a href="#">МФУ Canon i-SENSYS MF112 (2219C008)</a>
+                            </h3>
+                            <div class="product__props">
+                                <span class="product__rating">
+                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7.04894 0.92705C7.3483 0.00573924 8.6517 0.00573965 8.95106 0.92705L10.0206 4.21885C10.1545 4.63087 10.5385 4.90983 10.9717 4.90983H14.4329C15.4016 4.90983 15.8044 6.14945 15.0207 6.71885L12.2205 8.75329C11.87 9.00793 11.7234 9.4593 11.8572 9.87132L12.9268 13.1631C13.2261 14.0844 12.1717 14.8506 11.388 14.2812L8.58779 12.2467C8.2373 11.9921 7.7627 11.9921 7.41221 12.2467L4.61204 14.2812C3.82833 14.8506 2.77385 14.0844 3.0732 13.1631L4.14277 9.87132C4.27665 9.4593 4.12999 9.00793 3.7795 8.75329L0.979333 6.71885C0.195619 6.14945 0.598395 4.90983 1.56712 4.90983H5.02832C5.46154 4.90983 5.8455 4.63087 5.97937 4.21885L7.04894 0.92705Z" />
+                                    </svg>
+                                    4
+                                </span>
+                                <span class="product__testimonials">56 отзыва</span>
+                            </div>
+                            <div class="product__info">
+                                <span class="product__term">Артикул: 247134</span>
+                                <span class="product__available">В наличии: 11 шт</span>
+                            </div>
+                            <div class="product__price product-price">
+                                <span class="product-price__current">7 399 грн</span>
+                                <span class="product-price__old">7 399 грн</span>
+                            </div>
+                            <button class="product__btn btn">Добавить в корзину</button>
+                        </article>
+                    </li>
+                    <li class="products-grid__item">
+                        <article class="product" data-id="266968">
+                            <a href="#" class="product__image">
+                                <div class="product__switch image-switch">
+                                    <div class="image-switch__item">
+                                        <div class="image-switch__img"><img
+                                                src="https://img.ktc.ua/img/base/1_505/9/272319.jpg" alt="МФУ">
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="product__image-pagination image-pagination" aria-hidden="true"></ul>
+                            </a>
+                            <h3 class="product__title">
+                                <a href="#">МФУ HP Neverstop LJ 1200a (4QD21A)</a>
+                            </h3>
+                            <div class="product__props">
+                                <span class="product__rating">
+                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7.04894 0.92705C7.3483 0.00573924 8.6517 0.00573965 8.95106 0.92705L10.0206 4.21885C10.1545 4.63087 10.5385 4.90983 10.9717 4.90983H14.4329C15.4016 4.90983 15.8044 6.14945 15.0207 6.71885L12.2205 8.75329C11.87 9.00793 11.7234 9.4593 11.8572 9.87132L12.9268 13.1631C13.2261 14.0844 12.1717 14.8506 11.388 14.2812L8.58779 12.2467C8.2373 11.9921 7.7627 11.9921 7.41221 12.2467L4.61204 14.2812C3.82833 14.8506 2.77385 14.0844 3.0732 13.1631L4.14277 9.87132C4.27665 9.4593 4.12999 9.00793 3.7795 8.75329L0.979333 6.71885C0.195619 6.14945 0.598395 4.90983 1.56712 4.90983H5.02832C5.46154 4.90983 5.8455 4.63087 5.97937 4.21885L7.04894 0.92705Z" />
+                                    </svg>
+                                    5
+                                </span>
+                                <span class="product__testimonials">124 отзыва</span>
+                            </div>
+                            <div class="product__info">
+                                <span class="product__term">Артикул: 266968</span>
+                                <span class="product__available">В наличии: 5 шт</span>
+                            </div>
+                            <div class="product__price product-price">
+                                <span class="product-price__current">7 849 грн</span>
+                                <span class="product-price__old">7 849 грн</span>
+                            </div>
+                            <button class="product__btn btn">Добавить в корзину</button>
+                        </article>
+                    </li>
+                    <li class="products-grid__item">
+                        <article class="product" data-id="258329">
+                            <a href="#" class="product__image">
+                                <div class="product__switch image-switch">
+                                    <div class="image-switch__item">
+                                        <div class="image-switch__img"><img
+                                                src="https://img.ktc.ua/img/base/1_505/1/253521.jpg" alt="МФУ">
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="product__image-pagination image-pagination" aria-hidden="true"></ul>
+                            </a>
+                            <h3 class="product__title">
+                                <a href="#">МФУ HP LJ Pro M428dw with Wi-Fi (W1A28A)</a>
+                            </h3>
+                            <div class="product__props">
+                                <span class="product__rating">
+                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7.04894 0.92705C7.3483 0.00573924 8.6517 0.00573965 8.95106 0.92705L10.0206 4.21885C10.1545 4.63087 10.5385 4.90983 10.9717 4.90983H14.4329C15.4016 4.90983 15.8044 6.14945 15.0207 6.71885L12.2205 8.75329C11.87 9.00793 11.7234 9.4593 11.8572 9.87132L12.9268 13.1631C13.2261 14.0844 12.1717 14.8506 11.388 14.2812L8.58779 12.2467C8.2373 11.9921 7.7627 11.9921 7.41221 12.2467L4.61204 14.2812C3.82833 14.8506 2.77385 14.0844 3.0732 13.1631L4.14277 9.87132C4.27665 9.4593 4.12999 9.00793 3.7795 8.75329L0.979333 6.71885C0.195619 6.14945 0.598395 4.90983 1.56712 4.90983H5.02832C5.46154 4.90983 5.8455 4.63087 5.97937 4.21885L7.04894 0.92705Z" />
+                                    </svg>
+                                    4
+                                </span>
+                                <span class="product__testimonials">36 отзывов</span>
+                            </div>
+                            <div class="product__info">
+                                <span class="product__term">Артикул: 258329</span>
+                                <span class="product__available">В наличии: 9 шт</span>
+                            </div>
+                            <div class="product__price product-price">
+                                <span class="product-price__current">11 764 грн</span>
+                                <span class="product-price__old">11 764 грн</span>
+                            </div>
+                            <button class="product__btn btn">Добавить в корзину</button>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    <div class="modal-window modal">
+        <div class="modal-body">
+            <div class="modal-header">
+                <div class="modal__closet">
+                    <img src="icon/cancel.svg" alt="" height="20">
+                </div>
+                <h2 class="modal__title">Корзина</h2>
+            </div>
+            <div class="modal-cart">
 
+            </div>
+            <div class="modal-footer">
+                <div class="modal-footer__fullprice">
+                    <span>Итого:</span>
+                    <span class="footer__fullprice">90 789 грн</span>
+                </div>
+                <div class="modal-footer__btn btn">Купить</div>
+            </div>
+        </div>
+    </div>
+    <script src="script/mfu.js"></script>
+    <script src="script/User.js"></script>
+    <script src="script/Products.js"></script>
+    <script src="script/Warehouse.js"></script>
+    <script src="script/Cart.js"></script>
+    <script src="script/script.js"></script>
+    <script src="script/simplebar.js"></script>
+    <script src="script/button.js"></script>
     <script src="script/script.js"></script>
 </body>
 
