@@ -1,17 +1,31 @@
-const quantitySpan = document.getElementsByClassName('quantity__span');
+const plusLocalPrice = (currentPrice, id) => {
+  mfuClone[id].localPrice += currentPrice
+  mfuPrice.fullPrice += currentPrice;
+  price += currentPrice;
 
-const mfuClone = {};
+  mfuPrice.fullQuantity += 1;
 
-for (let key in mfu) {
-  if (mfu.hasOwnProperty(key)) {
-    mfuClone[key] = {
-      ...mfu[key],
-      count: 0
-    };
+};
+
+const minusLocalPrice = (currentPrice, id) => {
+  mfuClone[id].localPrice -= currentPrice
+  mfuPrice.fullPrice -= currentPrice;
+  price -= currentPrice;
+
+  mfuPrice.fullQuantity -= 1;
+};
+
+const setValuePrice = (id) => {
+  for (let j = 0; j < localPrices.length; j++) {
+    let curentId = localPrices[j].dataset.id;
+    if (curentId == id) {
+      localPrices[j].innerHTML = `${normalPrice(mfuClone[id].localPrice)} грн`;
+    }
   }
 }
 
-document.onclick = event => {
+//Event handling
+modalCart.onclick = event => {
   if (event.target.classList.contains('plus')) {
     plusFunction(event.target.dataset.id);
   }
@@ -19,6 +33,7 @@ document.onclick = event => {
     minusFunction(event.target.dataset.id);
   }
 }
+//Displaying the value on the screen
 const setQuantitySpan = (quantity, id) => {
   for (let j = 0; j < quantitySpan.length; j++) {
     let curentId = quantitySpan[j].dataset.id;
@@ -28,25 +43,38 @@ const setQuantitySpan = (quantity, id) => {
   }
 }
 
+//Adding an item to the cart
 const minusFunction = id => {
   --mfuClone[id].count;
-  if (mfuClone[id].count < 0) {
-    mfuClone[id].count = 0;
+  if (mfuClone[id].count < 1) {
+    mfuClone[id].count = 1;
     setQuantitySpan(mfuClone[id].count, id);
-    renderCart();
     return
   }
+  minusLocalPrice(mfuClone[id].price, id)
   setQuantitySpan(mfuClone[id].count, id);
-  renderCart();
-}
+  setValuePrice(id);
+  totalPrices.textContent = `${normalPrice(mfuPrice.fullPrice)} грн`;
+  printFullPrice();
+  cartQuantity.textContent = mfuPrice.fullQuantity;
 
+}
+//Removing an item from the cart
 const plusFunction = id => {
   if (mfuClone[id].count < mfuClone[id]["quantity"]) {
+    plusLocalPrice(mfuClone[id].price, id)
     setQuantitySpan(++mfuClone[id].count, id);
-    renderCart();
+    setValuePrice(id);
+    totalPrices.textContent = `${normalPrice(mfuPrice.fullPrice)} грн`;
+    printFullPrice();
+    cartQuantity.textContent = mfuPrice.fullQuantity;
+
   }
+
 }
 
-const renderCart = () => {
-  console.log(JSON.stringify(mfuClone))
-}
+//event overview
+// const renderCart = () => {
+//   // console.log(JSON.stringify(mfuClone))
+//   console.log(mfuClone);
+// }

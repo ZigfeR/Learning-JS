@@ -3,6 +3,7 @@
 @import 'product.css';
 @import 'product-grid.css';
 @import 'simplebar.css';
+@import 'modal.css';
 
 
 .header {
@@ -54,11 +55,11 @@
 
 .cart__quantity {
     position: absolute;
-    right: 2px;
-    top: 50%;
+    left: 50px;
+    top: 46%;
     transform: translateY(-50%);
     margin-top: -10px;
-    background-color: #de707b;
+    background-color: #fb3f4c;
     border-radius: 100%;
     padding: 2px;
     color: #fff;
@@ -68,6 +69,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+}
+
+.cart__svg {
+    fill: var(--color-quantity);
 }
 
 .cart-content {
@@ -89,6 +94,10 @@
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 
+.product__alert {
+    height: auto;
+}
+
 .content {
     padding-top: 90px;
 }
@@ -99,6 +108,7 @@
 
 .cart-product {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 12px 20px;
     padding-right: 13px;
@@ -118,7 +128,7 @@
 }
 
 .cart-product__title {
-    max-width: 300px;
+    width: 300px;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
@@ -138,14 +148,20 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
-    background-image: url("../img/trash.svg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     flex-shrink: 0;
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 75px;
     padding: 0;
+    fill: rgb(153, 135, 135);
+}
+
+.cart-product__delete:hover {
+    fill: #ff7878;
+    background-color: rgb(83, 83, 136);
+
 }
 
 .cart-content__bottom {

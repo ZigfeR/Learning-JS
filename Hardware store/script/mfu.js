@@ -1,4 +1,4 @@
-let mfu = {
+const mfu = {
   "279577": {
     "nameBrand": "Canon",
     "model": "PIXMA",

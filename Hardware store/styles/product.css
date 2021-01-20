@@ -136,7 +136,7 @@
     margin-left: 20px;
 }
 
-.quantity__span {
+/* .quantity__span {
     color: var(--color-quantity);
     font-size: 12px;
 }
@@ -155,7 +155,7 @@
 .quantity__btn:hover {
     background-color: #6078f1;
     transition: background-color 0.3s ease-in-out;
-}
+} */
 
 .product-price {
     margin-bottom: 17px;
