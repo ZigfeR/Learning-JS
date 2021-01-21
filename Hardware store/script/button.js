@@ -19,7 +19,7 @@ const setValuePrice = (id) => {
   for (let j = 0; j < localPrices.length; j++) {
     let curentId = localPrices[j].dataset.id;
     if (curentId == id) {
-      localPrices[j].innerHTML = `${normalPrice(mfuDictionary[id].localPrice)} грн`;
+      localPrices[j].innerHTML = `${getNormalPrice(mfuDictionary[id].localPrice)} грн`;
     }
   }
 }
@@ -54,8 +54,8 @@ const minusFunction = id => {
   minusLocalPrice(mfuDictionary[id].price, id)
   setQuantitySpan(mfuDictionary[id].count, id);
   setValuePrice(id);
-  totalPrices.textContent = `${normalPrice(mfuCart.fullPrice)} грн`;
-  printFullPrice();
+  totalPrices.textContent = `${getNormalPrice(mfuCart.fullPrice)} грн`;
+  getPrintFullPrice();
   cartQuantity.textContent = mfuCart.fullQuantity;
 
 }
@@ -65,8 +65,8 @@ const plusFunction = id => {
     plusLocalPrice(mfuDictionary[id].price, id)
     setQuantitySpan(++mfuDictionary[id].count, id);
     setValuePrice(id);
-    totalPrices.textContent = `${normalPrice(mfuCart.fullPrice)} грн`;
-    printFullPrice();
+    totalPrices.textContent = `${getNormalPrice(mfuCart.fullPrice)} грн`;
+    getPrintFullPrice();
     cartQuantity.textContent = mfuCart.fullQuantity;
 
   }

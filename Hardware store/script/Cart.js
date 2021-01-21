@@ -15,6 +15,7 @@ const productsBtn = document.querySelectorAll('.product__btn'),
 let mfuDictionary = {};
 const mfuCart = {
   fullQuantity: 0,
+  fullPrice: 0,
   price: 0
 };
 
