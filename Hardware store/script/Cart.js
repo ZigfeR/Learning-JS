@@ -12,7 +12,7 @@ const productsBtn = document.querySelectorAll('.product__btn'),
   localPrices = document.getElementsByClassName('modal-full-price')
 
 
-let mfuDictionary = {};
+let mfuDictionary = Object();
 const mfuCart = {
   fullQuantity: 0,
   fullPrice: 0,
@@ -172,23 +172,20 @@ function displayCard() {
 // Deleted Cart
 const deleteProducts = (productParent) => {
   let id = productParent.querySelector('.cart-product').dataset.id;
-  document.querySelector(`.product[data-id="${id}"]`).querySelector('.product__btn').disabled = false;
 
-  let currentPrice = parseInt(getPriceWithoutSpaces(productParent.querySelector('.cart-product__price').textContent));
-  minusFullPrice(currentPrice);
-  getPrintFullPrice();
-  productParent.remove();
-
-  mfuDictionary[id] = null;
-  mfuCart.fullQuantity -= 1;
-  cartQuantity.textContent = mfuCart.fullQuantity;
-  getPrintQuantity();
-
-  console.log(mfuDictionary);
+  setDelete(productParent, id);
 };
 
 const deleteCard = (productParent) => {
   let id = productParent.dataset.id;
+
+  let product = document.querySelector('.cart-content__item');
+  product.remove();
+
+  setDelete(productParent, id);
+};
+
+const setDelete = (productParent, id) => {
   document.querySelector(`.product[data-id="${id}"]`).querySelector('.product__btn').disabled = false;
 
   let currentPrice = mfuDictionary[id].localPrice;
@@ -196,9 +193,10 @@ const deleteCard = (productParent) => {
   getPrintFullPrice();
   productParent.remove();
 
-  mfuDictionary[id] = null;
-  mfuCart.fullQuantity -= 1;
+  mfuCart.fullQuantity -= mfuDictionary[id].count;
   cartQuantity.textContent = mfuCart.fullQuantity;
+
+  delete mfuDictionary[id];
   getPrintQuantity();
 
   console.log(mfuDictionary);
