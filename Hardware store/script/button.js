@@ -1,18 +1,18 @@
 const plusLocalPrice = (currentPrice, id) => {
   mfuDictionary[id].localPrice += currentPrice;
-  mfuCart.fullPrice += currentPrice;
+  mfuCart.totalPrice += currentPrice;
   mfuCart.price += currentPrice;
 
-  mfuCart.fullQuantity += 1;
+  mfuCart.totalQuantity += 1;
 
 };
 
 const minusLocalPrice = (currentPrice, id) => {
   mfuDictionary[id].localPrice -= currentPrice;
-  mfuCart.fullPrice -= currentPrice;
+  mfuCart.totalPrice -= currentPrice;
   mfuCart.price -= currentPrice;
 
-  mfuCart.fullQuantity -= 1;
+  mfuCart.totalQuantity -= 1;
 };
 
 const setValuePrice = (id) => {
@@ -54,9 +54,9 @@ const minusFunction = id => {
   minusLocalPrice(mfuDictionary[id].price, id)
   setQuantitySpan(mfuDictionary[id].count, id);
   setValuePrice(id);
-  totalPrices.textContent = `${getNormalPrice(mfuCart.fullPrice)} грн`;
+  getPrintTotalPrice();
   getPrintFullPrice();
-  cartQuantity.textContent = mfuCart.fullQuantity;
+  cartQuantity.textContent = mfuCart.totalQuantity;
 
 }
 //Removing an item from the cart
@@ -65,9 +65,9 @@ const plusFunction = id => {
     plusLocalPrice(mfuDictionary[id].price, id);
     setQuantitySpan(++mfuDictionary[id].count, id);
     setValuePrice(id);
-    totalPrices.textContent = `${getNormalPrice(mfuCart.fullPrice)} грн`;
+    getPrintTotalPrice();
     getPrintFullPrice();
-    cartQuantity.textContent = mfuCart.fullQuantity;
+    cartQuantity.textContent = mfuCart.totalQuantity;
 
   }
 

@@ -9,13 +9,14 @@ const productsBtn = document.querySelectorAll('.product__btn'),
   modal = document.querySelector(".modal-window"),
   modalCart = document.querySelector(".modal-cart"),
   closeBtn = document.querySelector(".modal__closet"),
+  cartContentItem = document.getElementsByClassName('cart-content__item'),
   localPrices = document.getElementsByClassName('modal-full-price')
 
 
 let mfuDictionary = Object();
 const mfuCart = {
-  fullQuantity: 0,
-  fullPrice: 0,
+  totalQuantity: 0,
+  totalPrice: 0,
   price: 0
 };
 
@@ -43,11 +44,14 @@ const getPrintQuantity = () => {
 const getPrintFullPrice = () => {
   fullPrice.textContent = `${getNormalPrice(mfuCart.price)} грн`;
 };
+const getPrintTotalPrice = () => {
+  totalPrices.textContent = `${getNormalPrice(mfuCart.totalPrice)} грн`;
+};
 //----------------------mini cart------------------------------
 //поменять SVG
 const generateCartProduct = (img, title, price, id) => {
   return `
-        <li class="cart-content__item">
+        <li class="cart-content__item" data-id="${id}">
             <article class="cart-content__product cart-product" data-id="${id}">
                 <img src="${img}" alt="" class="cart-product__img">
                 <div class="cart-product__text">
@@ -91,8 +95,8 @@ productsBtn.forEach(el => {
 
     cartProductsList.querySelector('.simplebar-content').insertAdjacentHTML('afterbegin', generateCartProduct(img, title, priceString, id));
 
-    mfuCart.fullQuantity += 1;
-    cartQuantity.textContent = mfuCart.fullQuantity;
+    mfuCart.totalQuantity += 1;
+    cartQuantity.textContent = mfuCart.totalQuantity;
     getPrintQuantity();
 
     //Cloning an array
@@ -109,7 +113,7 @@ productsBtn.forEach(el => {
       }
     }
 
-    mfuCart.fullPrice = mfuCart.price;
+    mfuCart.totalPrice = mfuCart.price;
     totalPrices.textContent = `${getNormalPrice(mfuCart.price)} грн`;
     self.disabled = true;
 
@@ -159,7 +163,7 @@ function displayCard() {
                         <span class="quantity__span counter" data-id="${item.id}">${item.count}</span>
                         <button class="quantity__btn plus" data-id="${item.id}">+</button>
                         <h2 class="modal-full-price" data-id="${item.id}">${getNormalPrice(item.localPrice)} грн</h2>
-                        <h2 class="modal-price" data-id="${item.id}">${getNormalPrice(item.localPrice)} грн</h2>
+                        <h2 class="modal-price" data-id="${item.id}">${getNormalPrice(item.price)} грн</h2>
                     </footer>
                 </div>
             </article>
@@ -179,8 +183,12 @@ const deleteProducts = (productParent) => {
 const deleteCard = (productParent) => {
   let id = productParent.dataset.id;
 
-  let product = document.querySelector('.cart-content__item');
-  product.remove();
+  for (let j = 0; j < cartContentItem.length; j++) {
+    let curentId = cartContentItem[j].dataset.id;
+    if (curentId == id) {
+      cartContentItem[j].remove();
+    }
+  }
 
   setDelete(productParent, id);
 };
@@ -190,11 +198,13 @@ const setDelete = (productParent, id) => {
 
   let currentPrice = mfuDictionary[id].localPrice;
   minusFullPrice(currentPrice);
+  mfuCart.totalPrice -= currentPrice;
+  getPrintTotalPrice();
   getPrintFullPrice();
   productParent.remove();
 
-  mfuCart.fullQuantity -= mfuDictionary[id].count;
-  cartQuantity.textContent = mfuCart.fullQuantity;
+  mfuCart.totalQuantity -= mfuDictionary[id].count;
+  cartQuantity.textContent = mfuCart.totalQuantity;
 
   delete mfuDictionary[id];
   getPrintQuantity();
