@@ -14,7 +14,7 @@ const productsBtn = document.querySelectorAll('.product__btn'),
 
 
 let warehouseDictionary = Object();
-const mfuCart = {
+const cartDictionary = {
   totalQuantity: 0,
   totalPrice: 0,
   price: 0
@@ -29,11 +29,11 @@ const getNormalPrice = (str) => {
 };
 
 const plusFullPrice = (currentPrice) => {
-  return mfuCart.price += currentPrice;
+  return cartDictionary.price += currentPrice;
 };
 
 const minusFullPrice = (currentPrice) => {
-  return mfuCart.price -= currentPrice;
+  return cartDictionary.price -= currentPrice;
 };
 
 const getPrintQuantity = () => {
@@ -42,10 +42,10 @@ const getPrintQuantity = () => {
 };
 
 const getPrintFullPrice = () => {
-  fullPrice.textContent = `${getNormalPrice(mfuCart.price)} грн`;
+  fullPrice.textContent = `${getNormalPrice(cartDictionary.price)} грн`;
 };
 const getPrintTotalPrice = () => {
-  totalPrices.textContent = `${getNormalPrice(mfuCart.totalPrice)} грн`;
+  totalPrices.textContent = `${getNormalPrice(cartDictionary.totalPrice)} грн`;
 };
 //----------------------mini cart------------------------------
 //поменять SVG
@@ -95,8 +95,8 @@ productsBtn.forEach(el => {
 
     cartProductsList.querySelector('.simplebar-content').insertAdjacentHTML('afterbegin', generateCartProduct(img, title, priceString, id));
 
-    mfuCart.totalQuantity += 1;
-    cartQuantity.textContent = mfuCart.totalQuantity;
+    cartDictionary.totalQuantity += 1;
+    cartQuantity.textContent = cartDictionary.totalQuantity;
     getPrintQuantity();
 
     for (let j = 0; j < warehouse.length; j++) {
@@ -116,8 +116,8 @@ productsBtn.forEach(el => {
         }
       }
     }
-    mfuCart.totalPrice = mfuCart.price;
-    totalPrices.textContent = `${getNormalPrice(mfuCart.price)} грн`;
+    cartDictionary.totalPrice = cartDictionary.price;
+    totalPrices.textContent = `${getNormalPrice(cartDictionary.price)} грн`;
     self.disabled = true;
 
     console.log(warehouseDictionary);
@@ -217,13 +217,13 @@ const setDelete = (productParent, id) => {
 
   let currentPrice = warehouseDictionary[id].localPrice;
   minusFullPrice(currentPrice);
-  mfuCart.totalPrice -= currentPrice;
+  cartDictionary.totalPrice -= currentPrice;
   getPrintTotalPrice();
   getPrintFullPrice();
   productParent.remove();
 
-  mfuCart.totalQuantity -= warehouseDictionary[id].count;
-  cartQuantity.textContent = mfuCart.totalQuantity;
+  cartDictionary.totalQuantity -= warehouseDictionary[id].count;
+  cartQuantity.textContent = cartDictionary.totalQuantity;
 
   delete warehouseDictionary[id];
   getPrintQuantity();

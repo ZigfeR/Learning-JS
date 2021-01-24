@@ -1,18 +1,18 @@
 const plusLocalPrice = (currentPrice, id) => {
   warehouseDictionary[id].localPrice += currentPrice;
-  mfuCart.totalPrice += currentPrice;
-  mfuCart.price += currentPrice;
+  cartDictionary.totalPrice += currentPrice;
+  cartDictionary.price += currentPrice;
 
-  mfuCart.totalQuantity += 1;
+  cartDictionary.totalQuantity += 1;
 
 };
 
 const minusLocalPrice = (currentPrice, id) => {
   mfuDictionary[id].localPrice -= currentPrice;
-  mfuCart.totalPrice -= currentPrice;
-  mfuCart.price -= currentPrice;
+  cartDictionary.totalPrice -= currentPrice;
+  cartDictionary.price -= currentPrice;
 
-  mfuCart.totalQuantity -= 1;
+  cartDictionary.totalQuantity -= 1;
 };
 
 const setValuePrice = (id) => {
@@ -56,7 +56,7 @@ const minusFunction = id => {
   setValuePrice(id);
   getPrintTotalPrice();
   getPrintFullPrice();
-  cartQuantity.textContent = mfuCart.totalQuantity;
+  cartQuantity.textContent = cartDictionary.totalQuantity;
 
 }
 //Removing an item from the cart
@@ -67,7 +67,7 @@ const plusFunction = id => {
     setValuePrice(id);
     getPrintTotalPrice();
     getPrintFullPrice();
-    cartQuantity.textContent = mfuCart.totalQuantity;
+    cartQuantity.textContent = cartDictionary.totalQuantity;
 
   }
 
