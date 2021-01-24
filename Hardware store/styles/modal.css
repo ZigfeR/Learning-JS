@@ -202,6 +202,14 @@
     background: #f1c40f;
 }
 
+.type-color--green {
+    background: #22f10f;
+}
+
+.type-color--red {
+    background: #f10f47;
+}
+
 .modal-type-color {
     top: 0;
     width: 40px;
@@ -308,7 +316,7 @@
 .modal-footer__fullprice {
     background: #fcfcfc;
     margin: auto 0;
-    padding: 10px 30px;
+    padding: 20px 30px;
 }
 
 .modal-footer__btn {
@@ -316,7 +324,11 @@
     justify-content: center;
     display: flex;
     margin: auto 0;
-    height: 80%;
-    width: 25%;
+    height: 75%;
 
+}
+
+.modal-footer__body {
+    display: flex;
+    width: 200px;
 }

@@ -9,13 +9,15 @@ const productsBtn = document.querySelectorAll('.product__btn'),
   modal = document.querySelector(".modal-window"),
   modalCart = document.querySelector(".modal-cart"),
   closeBtn = document.querySelector(".modal__closet"),
-  localPrices = document.getElementsByClassName('modal-full-price')
+  cartContentItem = document.getElementsByClassName('cart-content__item'),
+  localPrices = document.getElementsByClassName('modal-full-price'),
+  btnBuy = document.querySelector('.modal-footer__btn');
 
 
-let mfuDictionary = {};
-const mfuCart = {
-  fullQuantity: 0,
-  fullPrice: 0,
+let warehouseDictionary = Object();
+const cartDictionary = {
+  totalQuantity: 0,
+  totalPrice: 0,
   price: 0
 };
 
@@ -28,11 +30,11 @@ const getNormalPrice = (str) => {
 };
 
 const plusFullPrice = (currentPrice) => {
-  return mfuCart.price += currentPrice;
+  return cartDictionary.price += currentPrice;
 };
 
 const minusFullPrice = (currentPrice) => {
-  return mfuCart.price -= currentPrice;
+  return cartDictionary.price -= currentPrice;
 };
 
 const getPrintQuantity = () => {
@@ -41,13 +43,16 @@ const getPrintQuantity = () => {
 };
 
 const getPrintFullPrice = () => {
-  fullPrice.textContent = `${getNormalPrice(mfuCart.price)} грн`;
+  fullPrice.textContent = `${getNormalPrice(cartDictionary.price)} грн`;
+};
+const getPrintTotalPrice = () => {
+  totalPrices.textContent = `${getNormalPrice(cartDictionary.totalPrice)} грн`;
 };
 //----------------------mini cart------------------------------
 //поменять SVG
 const generateCartProduct = (img, title, price, id) => {
   return `
-        <li class="cart-content__item">
+        <li class="cart-content__item" data-id="${id}">
             <article class="cart-content__product cart-product" data-id="${id}">
                 <img src="${img}" alt="" class="cart-product__img">
                 <div class="cart-product__text">
@@ -91,29 +96,32 @@ productsBtn.forEach(el => {
 
     cartProductsList.querySelector('.simplebar-content').insertAdjacentHTML('afterbegin', generateCartProduct(img, title, priceString, id));
 
-    mfuCart.fullQuantity += 1;
-    cartQuantity.textContent = mfuCart.fullQuantity;
+    cartDictionary.totalQuantity += 1;
+    cartQuantity.textContent = cartDictionary.totalQuantity;
     getPrintQuantity();
 
-    //Cloning an array
-    for (let key in mfu) {
-      if (mfu.hasOwnProperty(key)) {
-        mfuDictionary[id] = {
-          ...mfu[id],
-          id: id,
-          img: img,
-          price: priceNumber,
-          localPrice: priceNumber,
-          count: 1
-        };
+    for (let j = 0; j < warehouse.length; j++) {
+      let currentLength = warehouse[j];
+      for (let key in currentLength) {
+        let currentId = currentLength[key];
+        if (currentId == currentLength[id]) {
+          warehouseDictionary[id] = {
+            ...currentLength[id],
+            id,
+            img,
+            price: priceNumber,
+            localPrice: priceNumber,
+            count: 1
+          };
+        }
       }
     }
 
-    mfuCart.fullPrice = mfuCart.price;
-    totalPrices.textContent = `${getNormalPrice(mfuCart.price)} грн`;
+    cartDictionary.totalPrice = cartDictionary.price;
+    totalPrices.textContent = `${getNormalPrice(cartDictionary.price)} грн`;
     self.disabled = true;
 
-    console.log(mfuDictionary);
+    console.log(warehouseDictionary);
   });
 });
 
@@ -121,23 +129,47 @@ productsBtn.forEach(el => {
 
 modalBtn.onclick = function () {
   displayCard();
-  modal.style.display = "block";
+  document.body.style.overflow = "hidden";
+  modal.style.display = "flex";
 }
 
 closeBtn.onclick = function () {
+  document.body.style.overflow = "initial";
   modal.style.display = "none";
 }
 
 window.onclick = function (e) {
   if (e.target == modal) {
+    document.body.style.overflow = "initial";
     modal.style.display = "none";
   }
 }
 
+btnBuy.onclick = function () {
+  for (let key in warehouseDictionary) {
+    if (warehouseDictionary.hasOwnProperty(key)) {
+      btnBuy.disabled = true;
+      warehouseDictionary[key].quantity -= warehouseDictionary[key].count;
+      console.log(warehouseDictionary[key].quantity)
+      console.log(warehouseDictionary)
+    }
+  }
+}
+
 function displayCard() {
-  if (mfuDictionary && modal) {
+  if (warehouseDictionary && modal) {
     modalCart.innerHTML = "";
-    Object.values(mfuDictionary).map(item => {
+    Object.values(warehouseDictionary).map(item => {
+      let typeColor = 0;
+      if (item.type == "MFU") {
+        typeColor = 'yellow';
+      }
+      if (item.type == "Printer") {
+        typeColor = 'green';
+      }
+      if (item.type == "Scanner") {
+        typeColor = 'red';
+      }
       modalCart.innerHTML += `
             <article class="modal-cart__product" data-id="${item.id}">
                 <header>
@@ -151,7 +183,7 @@ function displayCard() {
                         <h3 class="modal-cart-product__title">${item.nameBrand} ${item.model} ${item.modelName} (${item.modelArticle})</h3>
                         <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit eos itaque adipisci fugit corporis at ducimus quia voluptatibus, quam voluptatum veritatis.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit eos itaque adipisci fugit corporis at ducimus quia voluptatibus, quam voluptatum veritatis.</span>
-                        <div class="modal-type-color type-color--yellow"></div>
+                        <div class="modal-type-color type-color--${typeColor}"></div>
                         <div class="modal-type type-${item.type.toLowerCase()}">${item.type}</div>
                     </div>
                     <footer class="modal-content">
@@ -159,49 +191,57 @@ function displayCard() {
                         <span class="quantity__span counter" data-id="${item.id}">${item.count}</span>
                         <button class="quantity__btn plus" data-id="${item.id}">+</button>
                         <h2 class="modal-full-price" data-id="${item.id}">${getNormalPrice(item.localPrice)} грн</h2>
-                        <h2 class="modal-price" data-id="${item.id}">${getNormalPrice(item.localPrice)} грн</h2>
+                        <h2 class="modal-price" data-id="${item.id}">${getNormalPrice(item.price)} грн</h2>
                     </footer>
                 </div>
             </article>
     `
     })
-    console.log(mfuDictionary);
+    console.log(warehouseDictionary);
   }
 }
 
 // Deleted Cart
 const deleteProducts = (productParent) => {
   let id = productParent.querySelector('.cart-product').dataset.id;
-  document.querySelector(`.product[data-id="${id}"]`).querySelector('.product__btn').disabled = false;
 
-  let currentPrice = parseInt(getPriceWithoutSpaces(productParent.querySelector('.cart-product__price').textContent));
-  minusFullPrice(currentPrice);
-  getPrintFullPrice();
-  productParent.remove();
-
-  mfuDictionary[id] = null;
-  mfuCart.fullQuantity -= 1;
-  cartQuantity.textContent = mfuCart.fullQuantity;
-  getPrintQuantity();
-
-  console.log(mfuDictionary);
+  setDelete(productParent, id);
 };
 
 const deleteCard = (productParent) => {
   let id = productParent.dataset.id;
+
+  for (let j = 0; j < cartContentItem.length; j++) {
+    let curentId = cartContentItem[j].dataset.id;
+    if (curentId == id) {
+      cartContentItem[j].remove();
+    }
+    if (cartContentItem.length == 0) {
+      modal.style.display = "none";
+      document.body.style.overflow = "initial";
+    }
+  }
+
+  setDelete(productParent, id);
+};
+
+const setDelete = (productParent, id) => {
   document.querySelector(`.product[data-id="${id}"]`).querySelector('.product__btn').disabled = false;
 
-  let currentPrice = mfuDictionary[id].localPrice;
+  let currentPrice = warehouseDictionary[id].localPrice;
   minusFullPrice(currentPrice);
+  cartDictionary.totalPrice -= currentPrice;
+  getPrintTotalPrice();
   getPrintFullPrice();
   productParent.remove();
 
-  mfuDictionary[id] = null;
-  mfuCart.fullQuantity -= 1;
-  cartQuantity.textContent = mfuCart.fullQuantity;
+  cartDictionary.totalQuantity -= warehouseDictionary[id].count;
+  cartQuantity.textContent = cartDictionary.totalQuantity;
+
+  delete warehouseDictionary[id];
   getPrintQuantity();
 
-  console.log(mfuDictionary);
+  console.log(warehouseDictionary);
 };
 
 modalCart.addEventListener('click', (e) => {

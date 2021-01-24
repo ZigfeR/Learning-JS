@@ -34,10 +34,31 @@ ul {
 }
 
 :root {
+    --color-white: #fff;
     --color-dark: #4d4d4d;
     --color-light: #808080;
     --color-accent: #5d71dd;
     --color-quantity: #515d8f;
+    --color-red: #fb3f4c;
+    --color-blue: #6078f1;
+    --color-hover-blue: rgba(93, 113, 221, 0.1);
+
+    --header-background-color: var(--color-white);
+    --nav-link-color: var(--color-dark);
+    --cart-quantity-background-color: var(--color-red);
+    --cart-quantity-color: var(--color-white);
+    --cart-svg-background-color: var(--color-quantity);
+    --cart-content-background-color: var(--color-white);
+    --cart-product-background-color: var(--color-hover-blue);
+
+    --product-background-color: var(--color-white);
+    --product-image-background-color: var(--color-white);
+    --product-btn-color: var(--color-white);
+    --product-border-color: #d9d9d9;
+
+    --btn-color: var(--color-white);
+    --btn-background-color: var(--color-accent);
+    --btn-hover-background-color: var(--color-blue);
 }
 
 a {
@@ -61,14 +82,14 @@ ul {
     padding: 14px 0;
     border-radius: 4px;
     width: 100%;
-    color: #fff;
-    background-color: var(--color-accent);
+    color: var(--btn-color);
+    background-color: var(--btn-background-color);
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
 }
 
 .btn:hover {
-    background-color: #6078f1;
+    background-color: var(--btn-hover-background-color);
     transition: background-color 0.3s ease-in-out;
 }
 
