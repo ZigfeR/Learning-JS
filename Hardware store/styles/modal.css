@@ -325,6 +325,10 @@
     display: flex;
     margin: auto 0;
     height: 75%;
-    width: 25%;
 
+}
+
+.modal-footer__body {
+    display: flex;
+    width: 200px;
 }

@@ -8,7 +8,7 @@ const plusLocalPrice = (currentPrice, id) => {
 };
 
 const minusLocalPrice = (currentPrice, id) => {
-  mfuDictionary[id].localPrice -= currentPrice;
+  warehouseDictionary[id].localPrice -= currentPrice;
   cartDictionary.totalPrice -= currentPrice;
   cartDictionary.price -= currentPrice;
 

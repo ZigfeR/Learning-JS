@@ -10,7 +10,8 @@ const productsBtn = document.querySelectorAll('.product__btn'),
   modalCart = document.querySelector(".modal-cart"),
   closeBtn = document.querySelector(".modal__closet"),
   cartContentItem = document.getElementsByClassName('cart-content__item'),
-  localPrices = document.getElementsByClassName('modal-full-price')
+  localPrices = document.getElementsByClassName('modal-full-price'),
+  btnBuy = document.querySelector('.modal-footer__btn')
 
 
 let warehouseDictionary = Object();
@@ -104,7 +105,6 @@ productsBtn.forEach(el => {
       for (let key in currentLength) {
         let currentId = currentLength[key];
         if (currentId == currentLength[id]) {
-          console.log(currentId.type);
           warehouseDictionary[id] = {
             ...currentLength[id],
             id,
@@ -116,6 +116,7 @@ productsBtn.forEach(el => {
         }
       }
     }
+
     cartDictionary.totalPrice = cartDictionary.price;
     totalPrices.textContent = `${getNormalPrice(cartDictionary.price)} грн`;
     self.disabled = true;
@@ -141,6 +142,17 @@ window.onclick = function (e) {
   if (e.target == modal) {
     document.body.style.overflow = "initial";
     modal.style.display = "none";
+  }
+}
+
+btnBuy.onclick = function () {
+  for (let key in warehouseDictionary) {
+    if (warehouseDictionary.hasOwnProperty(key)) {
+      btnBuy.disabled = true;
+      warehouseDictionary[key].quantity -= warehouseDictionary[key].count;
+      console.log(warehouseDictionary[key].quantity)
+      console.log(warehouseDictionary)
+    }
   }
 }
 
