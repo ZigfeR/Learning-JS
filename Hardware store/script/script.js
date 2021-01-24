@@ -1,8 +1,8 @@
 const cardGrid = document.querySelector('.products-grid');
 
-function old(id, src, type, fullName, appraisal, reviews, quantity, price, oldPrice) {
+function addingGoods(id, src, type, fullName, appraisal, reviews, quantity, price, oldPrice) {
   cardGrid.innerHTML += `
-  <li class="products-grid__item">
+                    <li class="products-grid__item">
                         <article class="product" data-id="${id}">
                             <a href="#" class="product__image">
                                 <div class="product__switch image-switch">
@@ -54,6 +54,6 @@ for (let j = 0; j < warehouse.length; j++) {
     quantity = currentLength[key].quantity;
     price = currentLength[key].price;
     oldPrice = currentLength[key].oldPrice;
-    old(key, src, type, fullName, appraisal, reviews, quantity, price, oldPrice);
+    addingGoods(key, src, type, fullName, appraisal, reviews, quantity, price, oldPrice);
   }
 }
