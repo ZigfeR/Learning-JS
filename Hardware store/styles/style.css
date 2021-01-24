@@ -9,7 +9,7 @@
 .header {
     position: relative;
     z-index: 100;
-    background-color: #fff;
+    background-color: var(--header-background-color);
     box-shadow: 0px 4px 4px rgba(135, 135, 135, 0.25);
 }
 
@@ -34,7 +34,7 @@
     font-size: 16px;
     line-height: 19px;
     text-align: right;
-    color: var(--color-dark);
+    color: var(--nav-link-color);
 }
 
 .cart {
@@ -59,10 +59,10 @@
     top: 46%;
     transform: translateY(-50%);
     margin-top: -10px;
-    background-color: #fb3f4c;
+    background-color: var(--cart-quantity-background-color);
     border-radius: 100%;
     padding: 2px;
-    color: #fff;
+    color: var(--cart-quantity-color);
     font-size: 12px;
     min-height: 16px;
     min-width: 16px;
@@ -72,7 +72,7 @@
 }
 
 .cart__svg {
-    fill: var(--color-quantity);
+    fill: var(--cart-svg-background-color);
 }
 
 .cart-content {
@@ -81,7 +81,7 @@
     position: absolute;
     top: 100%;
     right: 0;
-    background-color: #fff;
+    background-color: var(--cart-content-background-color);
     box-shadow: 0px 4px 4px rgba(135, 135, 135, 0.25);
     opacity: 0;
     visibility: hidden;
@@ -116,7 +116,7 @@
 }
 
 .cart-product:hover {
-    background: rgba(93, 113, 221, 0.1);
+    background: var(--cart-product-background-color);
     transition: background-color 0.3s;
 }
 
