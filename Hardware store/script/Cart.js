@@ -11,7 +11,7 @@ const productsBtn = document.querySelectorAll('.product__btn'),
   closeBtn = document.querySelector(".modal__closet"),
   cartContentItem = document.getElementsByClassName('cart-content__item'),
   localPrices = document.getElementsByClassName('modal-full-price'),
-  btnBuy = document.querySelector('.modal-footer__btn')
+  btnBuy = document.querySelector('.modal-footer__btn');
 
 
 let warehouseDictionary = Object();
