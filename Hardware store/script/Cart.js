@@ -107,8 +107,8 @@ productsBtn.forEach(el => {
           console.log(currentId.type);
           warehouseDictionary[id] = {
             ...currentLength[id],
-            id: id,
-            img: img,
+            id,
+            img,
             price: priceNumber,
             localPrice: priceNumber,
             count: 1
@@ -206,6 +206,7 @@ const deleteCard = (productParent) => {
     }
     if (cartContentItem.length == 0) {
       modal.style.display = "none";
+      document.body.style.overflow = "initial";
     }
   }
 
