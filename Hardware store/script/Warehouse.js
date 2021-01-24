@@ -1,0 +1,1 @@
+let warehouse = [mfu, scanner, printer];

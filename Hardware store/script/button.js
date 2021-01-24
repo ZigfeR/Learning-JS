@@ -1,5 +1,5 @@
 const plusLocalPrice = (currentPrice, id) => {
-  mfuDictionary[id].localPrice += currentPrice;
+  warehouseDictionary[id].localPrice += currentPrice;
   mfuCart.totalPrice += currentPrice;
   mfuCart.price += currentPrice;
 
@@ -19,7 +19,7 @@ const setValuePrice = (id) => {
   for (let j = 0; j < localPrices.length; j++) {
     let curentId = localPrices[j].dataset.id;
     if (curentId == id) {
-      localPrices[j].innerHTML = `${getNormalPrice(mfuDictionary[id].localPrice)} грн`;
+      localPrices[j].innerHTML = `${getNormalPrice(warehouseDictionary[id].localPrice)} грн`;
     }
   }
 }
@@ -45,14 +45,14 @@ const setQuantitySpan = (quantity, id) => {
 
 //Adding an item to the cart
 const minusFunction = id => {
-  --mfuDictionary[id].count;
-  if (mfuDictionary[id].count < 1) {
-    mfuDictionary[id].count = 1;
-    setQuantitySpan(mfuDictionary[id].count, id);
+  --warehouseDictionary[id].count;
+  if (warehouseDictionary[id].count < 1) {
+    warehouseDictionary[id].count = 1;
+    setQuantitySpan(warehouseDictionary[id].count, id);
     return
   }
-  minusLocalPrice(mfuDictionary[id].price, id)
-  setQuantitySpan(mfuDictionary[id].count, id);
+  minusLocalPrice(warehouseDictionary[id].price, id)
+  setQuantitySpan(warehouseDictionary[id].count, id);
   setValuePrice(id);
   getPrintTotalPrice();
   getPrintFullPrice();
@@ -61,9 +61,9 @@ const minusFunction = id => {
 }
 //Removing an item from the cart
 const plusFunction = id => {
-  if (mfuDictionary[id].count < mfuDictionary[id]["quantity"]) {
-    plusLocalPrice(mfuDictionary[id].price, id);
-    setQuantitySpan(++mfuDictionary[id].count, id);
+  if (warehouseDictionary[id].count < warehouseDictionary[id]["quantity"]) {
+    plusLocalPrice(warehouseDictionary[id].price, id);
+    setQuantitySpan(++warehouseDictionary[id].count, id);
     setValuePrice(id);
     getPrintTotalPrice();
     getPrintFullPrice();
