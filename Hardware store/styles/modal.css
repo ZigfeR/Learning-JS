@@ -198,16 +198,16 @@
     font-weight: 300;
 }
 
-.type-color--yellow {
-    background: #f1c40f;
+.type-color--mfu {
+    background: #03506f;
 }
 
-.type-color--green {
-    background: #22f10f;
+.type-color--printer {
+    background: #16c79a;
 }
 
-.type-color--red {
-    background: #f10f47;
+.type-color--scanner {
+    background: #b9fffc;
 }
 
 .modal-type-color {
@@ -228,7 +228,7 @@
     top: 43px;
     background: #fcfcfc;
     font-size: 13px;
-    padding: 10px 16px;
+    padding: 10px;
     left: 100%;
 }
 
