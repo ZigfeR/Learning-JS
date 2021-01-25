@@ -6,6 +6,8 @@ const productsBtn = document.querySelectorAll('.product__btn'),
   quantitySpan = document.getElementsByClassName('quantity__span'),
   totalPrices = document.querySelector('.footer__fullprice'),
   modalBtn = document.querySelector(".cart-content__btn"),
+  loginUser = document.querySelector(".icon-user"),
+  modalUser = document.querySelector(".modal-user"),
   modal = document.querySelector(".modal-window"),
   modalCart = document.querySelector(".modal-cart"),
   closeBtn = document.querySelector(".modal__closet"),
@@ -129,13 +131,28 @@ window.onclick = function (e) {
     modal.style.display = "none";
   }
 }
-
+loginUser.onclick = function () {
+  displayCard();
+  document.body.style.overflow = "hidden";
+  modalUser.style.display = "flex";
+}
+window.onclick = function (e) {
+  if (e.target == modalUser) {
+    document.body.style.overflow = "initial";
+    modalUser.style.display = "none";
+  }
+}
+// loginUser
 btnBuy.onclick = function () {
   for (let key in warehouseDictionary) {
     if (warehouseDictionary.hasOwnProperty(key)) {
       btnBuy.disabled = true;
       warehouseDictionary[key].quantity -= warehouseDictionary[key].count;
-
+      modalCart.innerHTML = `
+                    <div class="thankyou">
+                        <h3 class="modal__delete">Спасибо за покупку товара</h3>
+                    </div>
+      `;
       console.log(warehouseDictionary[key].quantity)
       console.log(warehouseDictionary)
     }
