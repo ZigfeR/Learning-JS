@@ -49,7 +49,6 @@ const getPrintTotalPrice = () => {
   totalPrices.textContent = `${getNormalPrice(cartDictionary.totalPrice)} грн`;
 };
 //----------------------mini cart------------------------------
-//поменять SVG
 const generateCartProduct = (img, title, price, id) => {
   return `
         <li class="cart-content__item" data-id="${id}">
@@ -60,20 +59,6 @@ const generateCartProduct = (img, title, price, id) => {
                     <span class="cart-product__price">${getNormalPrice(price)}</span>
                 </div>
                 <button class="cart-product__delete" aria-label="Удалить товар">
-                    <svg aria-hidden="true" height="24" pointer-events="none" width="24">
-                        <use pointer-events="none" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trash">
-                            <svg viewBox="0 0 24 24" id="icon-trash">
-                                <g>
-                                    <path
-                                        d="m9 3c-.55228 0-1 .44772-1 1s.44772 1 1 1h6c.5523 0 1-.44772 1-1s-.4477-1-1-1z">
-                                    </path>
-                                    <path clip-rule="evenodd"
-                                        d="m3 7c0-.55228.44772-1 1-1h16c.5523 0 1 .44772 1 1s-.4477 1-1 1h-1v10c0 2.2091-1.7909 4-4 4h-6c-2.20914 0-4-1.7909-4-4v-10h-1c-.55228 0-1-.44772-1-1zm4 1h10v10c0 1.1046-.8954 2-2 2h-6c-1.10457 0-2-.8954-2-2z"
-                                        fill-rule="evenodd"></path>
-                                </g>
-                            </svg>
-                        </use>
-                    </svg>
                 </button>
             </article>
         </li>
@@ -150,6 +135,7 @@ btnBuy.onclick = function () {
     if (warehouseDictionary.hasOwnProperty(key)) {
       btnBuy.disabled = true;
       warehouseDictionary[key].quantity -= warehouseDictionary[key].count;
+
       console.log(warehouseDictionary[key].quantity)
       console.log(warehouseDictionary)
     }
@@ -162,13 +148,13 @@ function displayCard() {
     Object.values(warehouseDictionary).map(item => {
       let typeColor = 0;
       if (item.type == "MFU") {
-        typeColor = 'yellow';
+        typeColor = 'mfu';
       }
       if (item.type == "Printer") {
-        typeColor = 'green';
+        typeColor = 'printer';
       }
       if (item.type == "Scanner") {
-        typeColor = 'red';
+        typeColor = 'scanner';
       }
       modalCart.innerHTML += `
             <article class="modal-cart__product" data-id="${item.id}">
@@ -180,7 +166,7 @@ function displayCard() {
                 </header>
                 <div class="modal-content__body">
                     <div class="modal-content">
-                        <h3 class="modal-cart-product__title">${item.nameBrand} ${item.model} ${item.modelName} (${item.modelArticle})</h3>
+                        <h3 class="modal-cart-product__title">${item.fullName}</h3>
                         <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit eos itaque adipisci fugit corporis at ducimus quia voluptatibus, quam voluptatum veritatis.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit eos itaque adipisci fugit corporis at ducimus quia voluptatibus, quam voluptatum veritatis.</span>
                         <div class="modal-type-color type-color--${typeColor}"></div>
