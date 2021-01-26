@@ -8,6 +8,12 @@ const productsBtn = document.querySelectorAll('.product__btn'),
   modalBtn = document.querySelector(".cart-content__btn"),
   loginUser = document.querySelector(".icon-user"),
   modalUser = document.querySelector(".modal-user"),
+  userName = document.querySelector(".icon-user__text"),
+  submitUser = document.querySelector(".lf--submit"),
+  inputUser = document.querySelectorAll(".lf--input"),
+  sigInUsername = document.getElementById('username'),
+  sigInPassword = document.getElementById('password'),
+  sigInCash = document.getElementById('cash'),
   modal = document.querySelector(".modal-window"),
   modalCart = document.querySelector(".modal-cart"),
   closeBtn = document.querySelector(".modal__closet"),
@@ -15,13 +21,17 @@ const productsBtn = document.querySelectorAll('.product__btn'),
   localPrices = document.getElementsByClassName('modal-full-price'),
   btnBuy = document.querySelector('.modal-footer__btn');
 
-
 let warehouseDictionary = Object();
+const userDictionary = [];
 const cartDictionary = {
   totalQuantity: 0,
   totalPrice: 0,
   price: 0
 };
+
+for (let j = 0; j < productsBtn.length; j++) {
+  productsBtn[j].disabled = true;
+}
 
 const getPriceWithoutSpaces = (str) => {
   return str.replace(/\s/g, '');
@@ -112,37 +122,33 @@ productsBtn.forEach(el => {
   });
 });
 
-//------------------modal------------------------
+//------------------modal cart------------------------
 
 modalBtn.onclick = function () {
   displayCard();
-  document.body.style.overflow = "hidden";
-  modal.style.display = "flex";
+  getDisplayFlex(modal);
 }
 
 closeBtn.onclick = function () {
-  document.body.style.overflow = "initial";
-  modal.style.display = "none";
+  getDisplayNone(modal);
 }
 
 window.onclick = function (e) {
   if (e.target == modal) {
-    document.body.style.overflow = "initial";
-    modal.style.display = "none";
+    getDisplayNone(modal);
   }
 }
-loginUser.onclick = function () {
-  displayCard();
+
+
+function getDisplayNone(block) {
+  document.body.style.overflow = "initial";
+  block.style.display = "none";
+}
+
+function getDisplayFlex(block) {
   document.body.style.overflow = "hidden";
-  modalUser.style.display = "flex";
+  block.style.display = "flex";
 }
-window.onclick = function (e) {
-  if (e.target == modalUser) {
-    document.body.style.overflow = "initial";
-    modalUser.style.display = "none";
-  }
-}
-// loginUser
 btnBuy.onclick = function () {
   for (let key in warehouseDictionary) {
     if (warehouseDictionary.hasOwnProperty(key)) {
@@ -201,6 +207,40 @@ function displayCard() {
     `
     })
     console.log(warehouseDictionary);
+  }
+}
+//------------------modal login------------------------
+loginUser.onclick = function () {
+  getDisplayFlex(modalUser);
+}
+
+submitUser.onclick = function () {
+  let localUsername = sigInUsername.value;
+  let localPassword = sigInPassword.value;
+  let localCash = sigInCash.value;
+
+  let localUser = new User(localUsername, localPassword, localCash);
+  userDictionary.push(localUser);
+
+  userName.textContent = `${localUsername}`;
+
+  for (let i = 0; i < inputUser.length; i++) {
+    inputUser[i].value = "";
+  }
+
+  for (let j = 0; j < productsBtn.length; j++) {
+    productsBtn[j].disabled = false;
+  }
+
+  loginUser.className = "nav__item icon-user__active";
+
+  getDisplayNone(modalUser);
+  console.log(userDictionary);
+}
+
+window.onclick = function (e) {
+  if (e.target == modalUser) {
+    getDisplayNone(modalUser);
   }
 }
 
