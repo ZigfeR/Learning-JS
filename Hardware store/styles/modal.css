@@ -404,3 +404,8 @@
     display: flex;
     width: 200px;
 }
+
+.thankyou {
+    display: flex;
+    flex-direction: column;
+}

@@ -39,18 +39,21 @@ function addingGoods(id, src, type, fullName, appraisal, reviews, quantity, pric
   `
 }
 
-for (let j = 0; j < warehouse.length; j++) {
-  let currentLength = warehouse[j];
-  for (let key in currentLength) {
-    let src, type, fullName, appraisal, reviews, quantity, price, oldPrice;
-    src = currentLength[key].src;
-    type = currentLength[key].type;
-    fullName = currentLength[key].fullName;
-    appraisal = currentLength[key].appraisal;
-    reviews = currentLength[key].reviews;
-    quantity = currentLength[key].quantity;
-    price = currentLength[key].price;
-    oldPrice = currentLength[key].oldPrice;
-    addingGoods(key, src, type, fullName, appraisal, reviews, quantity, price, oldPrice);
+function getCart() {
+  for (let j = 0; j < warehouse.length; j++) {
+    let currentLength = warehouse[j];
+    for (let key in currentLength) {
+      let src, type, fullName, appraisal, reviews, quantity, price, oldPrice;
+      src = currentLength[key].src;
+      type = currentLength[key].type;
+      fullName = currentLength[key].fullName;
+      appraisal = currentLength[key].appraisal;
+      reviews = currentLength[key].reviews;
+      quantity = currentLength[key].quantity;
+      price = currentLength[key].price;
+      oldPrice = currentLength[key].oldPrice;
+      addingGoods(key, src, type, fullName, appraisal, reviews, quantity, price, oldPrice);
+    }
   }
 }
+getCart();

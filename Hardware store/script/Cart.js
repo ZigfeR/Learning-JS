@@ -29,6 +29,8 @@ const cartDictionary = {
   price: 0
 };
 
+let getUsername;
+
 for (let j = 0; j < productsBtn.length; j++) {
   productsBtn[j].disabled = true;
 }
@@ -150,19 +152,27 @@ function getDisplayFlex(block) {
   block.style.display = "flex";
 }
 btnBuy.onclick = function () {
+  let totalCart = "";
+
   for (let key in warehouseDictionary) {
     if (warehouseDictionary.hasOwnProperty(key)) {
-      btnBuy.disabled = true;
+      totalCart += `<span>${warehouseDictionary[key].fullName}: ${warehouseDictionary[key].count}шт</span>`;
       warehouseDictionary[key].quantity -= warehouseDictionary[key].count;
-      modalCart.innerHTML = `
-                    <div class="thankyou">
-                        <h3 class="modal__delete">Спасибо за покупку товара</h3>
-                    </div>
-      `;
-      console.log(warehouseDictionary[key].quantity)
-      console.log(warehouseDictionary)
     }
   }
+
+  btnBuy.disabled = true;
+  userDictionary[0].cash -= cartDictionary.price;
+  modalCart.innerHTML = `
+                <div class="thankyou">
+                    <h3 class="modal__thankyou">Спасибо за покупку товара ${getUsername}</h3>
+                    <span>Вы преобрели:</span>
+                    ${totalCart}
+                    <span>Ваш остаток на счету: ${userDictionary[0].cash}</span>
+                </div>
+  `;
+  console.log(warehouseDictionary[key].quantity)
+  console.log(warehouseDictionary)
 }
 
 function displayCard() {
@@ -218,6 +228,7 @@ submitUser.onclick = function () {
   let localUsername = sigInUsername.value;
   let localPassword = sigInPassword.value;
   let localCash = sigInCash.value;
+  getUsername = localUsername;
 
   let localUser = new User(localUsername, localPassword, localCash);
   userDictionary.push(localUser);
@@ -235,6 +246,10 @@ submitUser.onclick = function () {
   loginUser.className = "nav__item icon-user__active";
 
   getDisplayNone(modalUser);
+
+  // cardGrid.innerHTML = '';
+  // getCart();
+
   console.log(userDictionary);
 }
 
