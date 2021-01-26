@@ -156,20 +156,26 @@ btnBuy.onclick = function () {
     if (warehouseDictionary.hasOwnProperty(key)) {
       totalCart += `<span>${warehouseDictionary[key].fullName}: ${warehouseDictionary[key].count}шт</span>`;
       warehouseDictionary[key].quantity -= warehouseDictionary[key].count;
+      console.log(warehouseDictionary[key].quantity)
     }
   }
 
-  btnBuy.disabled = true;
-  userDictionary[0].cash -= cartDictionary.price;
-  modalCart.innerHTML = `
-                <div class="thankyou">
-                    <h3 class="modal__thankyou">Спасибо за покупку товара ${userDictionary[0].user}</h3>
-                    <span>Вы преобрели:</span>
-                    ${totalCart}
-                    <span>Ваш остаток на счету: ${userDictionary[0].cash} грн</span>
-                </div>
-  `;
-  console.log(warehouseDictionary[key].quantity)
+  for (let i = 0; i < userDictionary.length; i++) {
+    let j = userDictionary.length - 1;
+    if (i == j) {
+      userDictionary[i].cash -= cartDictionary.price;
+      modalCart.innerHTML = `
+                    <div class="thankyou">
+                        <h3 class="modal__thankyou">Спасибо за покупку товара ${userDictionary[i].user}</h3>
+                        <span>Вы преобрели:</span>
+                        ${totalCart}
+                        <span>Ваш остаток на счету: ${userDictionary[i].cash} грн</span>
+                    </div>
+      `;
+    }
+  }
+
+  // btnBuy.disabled = true;
   console.log(warehouseDictionary)
 }
 
