@@ -29,8 +29,6 @@ const cartDictionary = {
   price: 0
 };
 
-let getUsername;
-
 for (let j = 0; j < productsBtn.length; j++) {
   productsBtn[j].disabled = true;
 }
@@ -165,10 +163,10 @@ btnBuy.onclick = function () {
   userDictionary[0].cash -= cartDictionary.price;
   modalCart.innerHTML = `
                 <div class="thankyou">
-                    <h3 class="modal__thankyou">Спасибо за покупку товара ${getUsername}</h3>
+                    <h3 class="modal__thankyou">Спасибо за покупку товара ${userDictionary[0].user}</h3>
                     <span>Вы преобрели:</span>
                     ${totalCart}
-                    <span>Ваш остаток на счету: ${userDictionary[0].cash}</span>
+                    <span>Ваш остаток на счету: ${userDictionary[0].cash} грн</span>
                 </div>
   `;
   console.log(warehouseDictionary[key].quantity)
@@ -228,7 +226,6 @@ submitUser.onclick = function () {
   let localUsername = sigInUsername.value;
   let localPassword = sigInPassword.value;
   let localCash = sigInCash.value;
-  getUsername = localUsername;
 
   let localUser = new User(localUsername, localPassword, localCash);
   userDictionary.push(localUser);
