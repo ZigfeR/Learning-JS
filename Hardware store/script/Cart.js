@@ -105,7 +105,6 @@ productsBtn.forEach(el => {
           warehouseDictionary[id] = {
             ...currentLength[id],
             id,
-            img,
             price: priceNumber,
             localPrice: priceNumber,
             count: 1
@@ -152,30 +151,39 @@ function getDisplayFlex(block) {
 btnBuy.onclick = function () {
   let totalCart = "";
 
-  for (let key in warehouseDictionary) {
-    if (warehouseDictionary.hasOwnProperty(key)) {
-      totalCart += `<span>${warehouseDictionary[key].fullName}: ${warehouseDictionary[key].count}шт</span>`;
-      warehouseDictionary[key].quantity -= warehouseDictionary[key].count;
-      console.log(warehouseDictionary[key].quantity)
-    }
-  }
 
   for (let i = 0; i < userDictionary.length; i++) {
     let j = userDictionary.length - 1;
     if (i == j) {
-      userDictionary[i].cash -= cartDictionary.price;
-      modalCart.innerHTML = `
-                    <div class="thankyou">
-                        <h3 class="modal__thankyou">Спасибо за покупку товара ${userDictionary[i].user}</h3>
-                        <span>Вы преобрели:</span>
-                        ${totalCart}
-                        <span>Ваш остаток на счету: ${userDictionary[i].cash} грн</span>
-                    </div>
-      `;
+      if (cartDictionary.totalPrice < userDictionary[i].cash) {
+        for (let key in warehouseDictionary) {
+          if (warehouseDictionary.hasOwnProperty(key)) {
+            totalCart += `<span>${warehouseDictionary[key].fullName}: ${warehouseDictionary[key].count}шт</span>`;
+            warehouseDictionary[key].quantity -= warehouseDictionary[key].count;
+            console.log(warehouseDictionary[key].quantity)
+          }
+        }
+
+        let guru = document.querySelectorAll('.modal-cart__product')
+        for (let i = 0; i < guru.length; i++) {
+          cleareCard(guru[i]);
+        }
+        userDictionary[i].cash -= cartDictionary.totalPrice;
+        modalCart.innerHTML = `
+                      <div class="thankyou">
+                          <h3 class="modal__thankyou">Спасибо за покупку товара ${userDictionary[i].user}</h3>
+                          <span>Вы преобрели:</span>
+                          ${totalCart}
+                          <span>Ваш остаток на счету: ${userDictionary[i].cash} грн</span>
+                      </div>
+        `;
+        btnBuy.disabled = true;
+
+      } else {
+        alert("Недостаточно средств!");
+      }
     }
   }
-
-  // btnBuy.disabled = true;
   console.log(warehouseDictionary)
 }
 
@@ -197,7 +205,7 @@ function displayCard() {
             <article class="modal-cart__product" data-id="${item.id}">
                 <header>
                     <a class="modal-remove" aria-label="Удалить товар">
-                        <img src="${item.img}" alt="" class="modal-cart-product__img">
+                        <img src="${item.src}" alt="" class="modal-cart-product__img">
                         <h3 class="modal__delete">Удалить товар</h3>
                     </a>
                 </header>
@@ -220,7 +228,7 @@ function displayCard() {
             </article>
     `
     })
-    console.log(warehouseDictionary);
+    console.log(cartDictionary);
   }
 }
 //------------------modal login------------------------
@@ -259,6 +267,9 @@ submitUser.onclick = function () {
 window.onclick = function (e) {
   if (e.target == modalUser) {
     getDisplayNone(modalUser);
+    for (let i = 0; i < inputUser.length; i++) {
+      inputUser[i].value = "";
+    }
   }
 }
 
@@ -286,6 +297,19 @@ const deleteCard = (productParent) => {
   setDelete(productParent, id);
 };
 
+const cleareCard = (productParent) => {
+  let id = productParent.dataset.id;
+
+  for (let j = 0; j < cartContentItem.length; j++) {
+    let curentId = cartContentItem[j].dataset.id;
+    if (curentId == id) {
+      cartContentItem[j].remove();
+    }
+  }
+
+  fetDelete(productParent, id);
+};
+
 const setDelete = (productParent, id) => {
   document.querySelector(`.product[data-id="${id}"]`).querySelector('.product__btn').disabled = false;
 
@@ -294,6 +318,20 @@ const setDelete = (productParent, id) => {
   cartDictionary.totalPrice -= currentPrice;
   getPrintTotalPrice();
   getPrintFullPrice();
+  productParent.remove();
+
+  cartDictionary.totalQuantity -= warehouseDictionary[id].count;
+  cartQuantity.textContent = cartDictionary.totalQuantity;
+
+  delete warehouseDictionary[id];
+  getPrintQuantity();
+
+  console.log(warehouseDictionary);
+};
+
+const fetDelete = (productParent, id) => {
+  document.querySelector(`.product[data-id="${id}"]`).querySelector('.product__btn').disabled = false;
+
   productParent.remove();
 
   cartDictionary.totalQuantity -= warehouseDictionary[id].count;
