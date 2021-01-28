@@ -136,6 +136,12 @@ window.onclick = function (e) {
   if (e.target == modal) {
     getDisplayNone(modal);
   }
+  if (e.target == modalUser) {
+    getDisplayNone(modalUser);
+    for (let i = 0; i < inputUser.length; i++) {
+      inputUser[i].value = "";
+    }
+  }
 }
 
 
@@ -148,9 +154,9 @@ function getDisplayFlex(block) {
   document.body.style.overflow = "hidden";
   block.style.display = "flex";
 }
+
 btnBuy.onclick = function () {
   let totalCart = "";
-
 
   for (let i = 0; i < userDictionary.length; i++) {
     let j = userDictionary.length - 1;
@@ -264,14 +270,9 @@ submitUser.onclick = function () {
   console.log(userDictionary);
 }
 
-window.onclick = function (e) {
-  if (e.target == modalUser) {
-    getDisplayNone(modalUser);
-    for (let i = 0; i < inputUser.length; i++) {
-      inputUser[i].value = "";
-    }
-  }
-}
+// window.onclick = function (e) {
+
+// }
 
 // Deleted Cart
 const deleteProducts = (productParent) => {
