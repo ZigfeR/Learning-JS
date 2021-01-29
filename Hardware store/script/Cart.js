@@ -6,6 +6,14 @@ const productsBtn = document.querySelectorAll('.product__btn'),
   quantitySpan = document.getElementsByClassName('quantity__span'),
   totalPrices = document.querySelector('.footer__fullprice'),
   modalBtn = document.querySelector(".cart-content__btn"),
+  loginUser = document.querySelector(".icon-user"),
+  modalUser = document.querySelector(".modal-user"),
+  userName = document.querySelector(".icon-user__text"),
+  submitUser = document.querySelector(".lf--submit"),
+  inputUser = document.querySelectorAll(".lf--input"),
+  sigInUsername = document.getElementById('username'),
+  sigInPassword = document.getElementById('password'),
+  sigInCash = document.getElementById('cash'),
   modal = document.querySelector(".modal-window"),
   modalCart = document.querySelector(".modal-cart"),
   closeBtn = document.querySelector(".modal__closet"),
@@ -13,13 +21,17 @@ const productsBtn = document.querySelectorAll('.product__btn'),
   localPrices = document.getElementsByClassName('modal-full-price'),
   btnBuy = document.querySelector('.modal-footer__btn');
 
-
 let warehouseDictionary = Object();
+const userDictionary = [];
 const cartDictionary = {
   totalQuantity: 0,
   totalPrice: 0,
   price: 0
 };
+
+for (let j = 0; j < productsBtn.length; j++) {
+  productsBtn[j].disabled = true;
+}
 
 const getPriceWithoutSpaces = (str) => {
   return str.replace(/\s/g, '');
@@ -85,15 +97,14 @@ productsBtn.forEach(el => {
     cartQuantity.textContent = cartDictionary.totalQuantity;
     getPrintQuantity();
 
-    for (let j = 0; j < warehouse.length; j++) {
-      let currentLength = warehouse[j];
+    for (let j = 0; j < itemsWarehouse.length; j++) {
+      let currentLength = itemsWarehouse[j];
       for (let key in currentLength) {
         let currentId = currentLength[key];
         if (currentId == currentLength[id]) {
           warehouseDictionary[id] = {
             ...currentLength[id],
             id,
-            img,
             price: priceNumber,
             localPrice: priceNumber,
             count: 1
@@ -110,36 +121,86 @@ productsBtn.forEach(el => {
   });
 });
 
-//------------------modal------------------------
+//------------------modal cart------------------------
 
 modalBtn.onclick = function () {
   displayCard();
-  document.body.style.overflow = "hidden";
-  modal.style.display = "flex";
-}
+  getDisplayFlex(modal);
+  btnBuy.disabled = false;
 
+}
 closeBtn.onclick = function () {
-  document.body.style.overflow = "initial";
-  modal.style.display = "none";
+  getDisplayNone(modal);
 }
 
 window.onclick = function (e) {
   if (e.target == modal) {
-    document.body.style.overflow = "initial";
-    modal.style.display = "none";
+    getDisplayNone(modal);
+  }
+  if (e.target == modalUser) {
+    getDisplayNone(modalUser);
+    for (let i = 0; i < inputUser.length; i++) {
+      inputUser[i].value = "";
+    }
   }
 }
 
-btnBuy.onclick = function () {
-  for (let key in warehouseDictionary) {
-    if (warehouseDictionary.hasOwnProperty(key)) {
-      btnBuy.disabled = true;
-      warehouseDictionary[key].quantity -= warehouseDictionary[key].count;
 
-      console.log(warehouseDictionary[key].quantity)
-      console.log(warehouseDictionary)
+function getDisplayNone(block) {
+  document.body.style.overflow = "initial";
+  block.style.display = "none";
+}
+
+function getDisplayFlex(block) {
+  document.body.style.overflow = "hidden";
+  block.style.display = "flex";
+}
+
+btnBuy.onclick = function () {
+  let totalCart = "";
+
+  for (let i = 0; i < userDictionary.length; i++) {
+    let j = userDictionary.length - 1;
+    if (i == j) {
+      if (cartDictionary.totalPrice < userDictionary[i].cash) {
+        for (let key in warehouseDictionary) {
+          if (warehouseDictionary.hasOwnProperty(key)) {
+            totalCart += `<span>${warehouseDictionary[key].fullName}: ${warehouseDictionary[key].count}шт</span>`;
+            warehouseDictionary[key].quantity -= warehouseDictionary[key].count;
+            for (let j = 0; j < itemsWarehouse.length; j++) {
+              let currentLength = itemsWarehouse[j];
+              if (currentLength.hasOwnProperty(key)) {
+                currentLength[key].quantity = warehouseDictionary[key].quantity;
+              }
+            }
+          }
+        }
+
+        let modalCartProduct = document.querySelectorAll('.modal-cart__product');
+        for (let i = 0; i < modalCartProduct.length; i++) {
+          cleareCard(modalCartProduct[i]);
+        }
+        userDictionary[i].cash -= cartDictionary.totalPrice;
+        modalCart.innerHTML = `
+                      <div class="thankyou">
+                          <h3 class="modal__thankyou">Спасибо за покупку товара ${userDictionary[i].user}</h3>
+                          <span>Вы преобрели:</span>
+                          ${totalCart}
+                          <span>Ваш остаток на счету: ${userDictionary[i].cash} грн</span>
+                      </div>
+        `;
+        cartDictionary.totalPrice = null;
+        cartDictionary.price = null;
+
+        btnBuy.disabled = true;
+
+        getReloadCart();
+      } else {
+        alert("Недостаточно средств!");
+      }
     }
   }
+  console.log(warehouseDictionary)
 }
 
 function displayCard() {
@@ -160,7 +221,7 @@ function displayCard() {
             <article class="modal-cart__product" data-id="${item.id}">
                 <header>
                     <a class="modal-remove" aria-label="Удалить товар">
-                        <img src="${item.img}" alt="" class="modal-cart-product__img">
+                        <img src="${item.src}" alt="" class="modal-cart-product__img">
                         <h3 class="modal__delete">Удалить товар</h3>
                     </a>
                 </header>
@@ -183,10 +244,77 @@ function displayCard() {
             </article>
     `
     })
-    console.log(warehouseDictionary);
+    console.log(cartDictionary);
   }
 }
+//------------------modal login------------------------
+loginUser.onclick = function () {
+  getDisplayFlex(modalUser);
+}
 
+
+submitUser.onclick = function () {
+  let localUsername = sigInUsername.value;
+  let localPassword = sigInPassword.value;
+  let localCash = sigInCash.value;
+
+  let localUser = new User(localUsername, localPassword, localCash);
+  userDictionary.push(localUser);
+
+  userName.textContent = `${localUsername}`;
+
+  clearModalCart();
+  for (let i = 0; i < inputUser.length; i++) {
+    inputUser[i].value = "";
+  }
+
+  for (let j = 0; j < productsBtn.length; j++) {
+    productsBtn[j].disabled = false;
+  }
+
+  loginUser.className = "nav__item icon-user__active";
+
+  getDisplayNone(modalUser);
+
+  console.log(userDictionary);
+}
+const clearModalCart = () => {
+  let modalCartProduct = document.querySelectorAll('.modal-cart__product');
+  let cartProduct = document.querySelectorAll('.cart-product');
+  if (modalCartProduct.length > 0) {
+    for (let i = 0; i < modalCartProduct.length; i++) {
+      cleareCard(modalCartProduct[i]);
+    }
+  } else {
+    for (let i = 0; i < cartProduct.length; i++) {
+      cleareCard(cartProduct[i]);
+    }
+  }
+  cartDictionary.totalPrice = null;
+  cartDictionary.price = null;
+}
+
+
+function getReloadCart() {
+  cardGrid.innerHTML = '';
+
+  for (let j = 0; j < itemsWarehouse.length; j++) {
+    let currentLength = itemsWarehouse[j];
+    for (let key in currentLength) {
+      let src, type, fullName, appraisal, reviews, quantity, price, oldPrice;
+      src = currentLength[key].src;
+      type = currentLength[key].type;
+      fullName = currentLength[key].fullName;
+      appraisal = currentLength[key].appraisal;
+      reviews = currentLength[key].reviews;
+      quantity = currentLength[key].quantity;
+      price = currentLength[key].price;
+      oldPrice = currentLength[key].oldPrice;
+      addingGoods(key, src, type, fullName, appraisal, reviews, quantity, price, oldPrice);
+    }
+  }
+
+}
 // Deleted Cart
 const deleteProducts = (productParent) => {
   let id = productParent.querySelector('.cart-product').dataset.id;
@@ -211,6 +339,19 @@ const deleteCard = (productParent) => {
   setDelete(productParent, id);
 };
 
+const cleareCard = (productParent) => {
+  let id = productParent.dataset.id;
+
+  for (let j = 0; j < cartContentItem.length; j++) {
+    let curentId = cartContentItem[j].dataset.id;
+    if (curentId == id) {
+      cartContentItem[j].remove();
+    }
+  }
+
+  fetDelete(productParent, id);
+};
+
 const setDelete = (productParent, id) => {
   document.querySelector(`.product[data-id="${id}"]`).querySelector('.product__btn').disabled = false;
 
@@ -225,6 +366,20 @@ const setDelete = (productParent, id) => {
   cartQuantity.textContent = cartDictionary.totalQuantity;
 
   delete warehouseDictionary[id];
+  getPrintQuantity();
+
+  console.log(warehouseDictionary);
+};
+
+const fetDelete = (productParent, id) => {
+  document.querySelector(`.product[data-id="${id}"]`).querySelector('.product__btn').disabled = false;
+
+  productParent.remove();
+
+  cartDictionary.totalQuantity -= warehouseDictionary[id].count;
+  cartQuantity.textContent = cartDictionary.totalQuantity;
+
+  // delete warehouseDictionary[id];
   getPrintQuantity();
 
   console.log(warehouseDictionary);
