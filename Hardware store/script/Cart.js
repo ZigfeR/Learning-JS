@@ -193,7 +193,7 @@ btnBuy.onclick = function () {
         cartDictionary.price = null;
 
         btnBuy.disabled = true;
-
+        modalCart.style.paddingRight = 0;
         getReloadCart();
       } else {
         alert("Недостаточно средств!");

@@ -408,4 +408,21 @@
 .thankyou {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    max-width: 980px;
+    background-image: url("/hardware store/icon/checked.png");
+    height: 512px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.thankyou>span {
+    margin: 1% 0;
+    margin-left: 25%;
+    font-family: serif;
+    font-weight: bold;
+}
+
+.thankyou h3 {
+    margin: 2% auto;
 }
