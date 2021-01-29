@@ -40,8 +40,8 @@ function addingGoods(id, src, type, fullName, appraisal, reviews, quantity, pric
 }
 
 function getCart() {
-  for (let j = 0; j < warehouse.length; j++) {
-    let currentLength = warehouse[j];
+  for (let j = 0; j < itemsWarehouse.length; j++) {
+    let currentLength = itemsWarehouse[j];
     for (let key in currentLength) {
       let src, type, fullName, appraisal, reviews, quantity, price, oldPrice;
       src = currentLength[key].src;
