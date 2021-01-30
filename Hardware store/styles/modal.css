@@ -410,10 +410,8 @@
     flex-direction: column;
     justify-content: center;
     max-width: 980px;
-    background-image: url("/hardware store/icon/checked.png");
-    height: 512px;
-    background-repeat: no-repeat;
-    background-position: center;
+    height: 520px;
+    background-color: #51d05a;
 }
 
 .thankyou>span {
